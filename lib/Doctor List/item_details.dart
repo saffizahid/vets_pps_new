@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import 'edit_item.dart';
 import 'item_list.dart';
 
 class ItemDetails extends StatelessWidget {
