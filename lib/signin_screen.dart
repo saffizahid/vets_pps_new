@@ -18,11 +18,36 @@ class _MyAppNewState extends State<MyAppNew> {
   final _emailController= TextEditingController();
   final _passwordController= TextEditingController();
 
+
   Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim());
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim());
+
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+      print(e);
+      showDialog(context: context, builder: (context)
+      {
+        return AlertDialog(
+          title:Text("Note" ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,color: Colors.white),),
+          elevation: 80,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          backgroundColor: Color.fromRGBO(26, 59, 106, 1.0),
+
+          content:Text(e.message.toString(),style: (TextStyle(fontWeight: FontWeight.w500,fontSize: 13,color: Colors.white)),),
+        );
+      });
+    }
   }
+
   @override
   Future<void> dispose() async {
     _emailController.dispose();
@@ -49,8 +74,6 @@ class _MyAppNewState extends State<MyAppNew> {
         centerTitle: true,
 
       ),
-      // floatingActionButton: FloatingActionButton(onPressed: (){},
-      //child: Icon(Icons.access_time),),
 
       body: Container(        decoration: BoxDecoration(color: Colors.white),
         width:w,

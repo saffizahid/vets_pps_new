@@ -52,14 +52,14 @@ class NavBar extends StatelessWidget {
             )),
             onTap: () => null,
           ),
-          ListTile(
+         /* ListTile(
             leading: Icon(Icons.ballot_outlined,color: Colors.white,),
             title: Text('Find Vets',style: TextStyle(
     color: Colors.white,
     )),
             onTap: () => null,
-          ),
-
+          ),*/
+/*
           ListTile(
             leading: Icon(Icons.notifications,color: Colors.white,),
             title: Text('Notifications',style: TextStyle(
@@ -71,7 +71,7 @@ class NavBar extends StatelessWidget {
             title: Text('Your Addresses',style: TextStyle(
               color: Colors.white,
             )),
-          ),
+          ),*/
           ListTile(
             leading: Icon(Icons.list_alt_outlined,color: Colors.white,),
             title: Text('Reminders',style: TextStyle(
