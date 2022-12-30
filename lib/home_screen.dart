@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vets_pps_new/navbar.dart';
 import 'Doctor List/add_item.dart';
+import 'Vets Profile/Appiotment Status.dart';
 import 'Vets Profile/register_screen.dart';
 import 'main.dart';
 
@@ -52,83 +53,110 @@ class _HomePageState extends State<HomePage> {
       body:
       StreamBuilder(
         stream: FirebaseFirestore.instance
-            .collection("vet")
+            .collection("vets")
         .doc(user.uid)
         .snapshots(),
     builder: (context, sasapshot) {
       if (sasapshot.data!.exists) {
-        return Container(
-          width: w,
-          height: h,
-          decoration: BoxDecoration(color: Colors.white),
+        var document = sasapshot.data;
+  var status=document!["ProfileStatus"];
+      return Container(
+        width: w,
+        height: h,
+        child: Column(
+          children: [
+            if (status == "Approved") ...[
+        Container(
 
-          child:
-          Column(
-            children: [
-              //Text('Signed in As '+ user.email!,style:TextStyle(color: Color.fromRGBO(26, 59, 106, 1.0)),),
-              //MaterialButton(onPressed: (){
-              //FirebaseAuth.instance.signOut();
-              //},
-              //color: Color.fromRGBO(26, 59, 106, 1.0),
-              //child: Text('Signed Out ',style:TextStyle(color: Color.fromRGBO(26, 59, 106, 1.0)),),)
+        decoration: BoxDecoration(color: Colors.white),
 
-              InkWell(
+        child:
 
-                child: Container(
-                  margin: const EdgeInsets.only(top: 10, left: 0),
-                  //child: Image.asset('android/Images/3.png'
-                  //),
+        Column(
+        children: [
+        //Text('Signed in As '+ user.email!,style:TextStyle(color: Color.fromRGBO(26, 59, 106, 1.0)),),
+        //MaterialButton(onPressed: (){
+        //FirebaseAuth.instance.signOut();
+        //},
+        //color: Color.fromRGBO(26, 59, 106, 1.0),
+        //child: Text('Signed Out ',style:TextStyle(color: Color.fromRGBO(26, 59, 106, 1.0)),),)
+
+        InkWell(
+
+        child: Container(
+        margin: const EdgeInsets.only(top: 10, left: 0),
+        //child: Image.asset('android/Images/3.png'
+        //),
+        ),
+        ),
+        InkWell(
+        /* onTap: (){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context)
+                                      {
+                                        return  ProfileScreen();
+                                      }
+                                  )
+                              );
+                            },
+            */
+        child: Container(
+        margin: const EdgeInsets.only(top: 10, left: 0),
+        /*child: Image.asset('android/Images/4.png'
+                              ),*/
+        ),
+        ),
+
+          InkWell(
+            onTap: () {
+    Navigator.push(
+    context,
+    MaterialPageRoute(
+    builder: (context)
+    {
+    return  AricleScreen();
+    }
+    )
+    );
+
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(top:50),
+              child: Container(
+                height:80,
+                decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
+                    borderRadius: BorderRadius.circular(5)
+
                 ),
+
+                child: Center(child: Text('Click Here to See Your Appointments',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+
               ),
-              InkWell(
-                /* onTap: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context)
-                          {
-                            return  ProfileScreen();
-                          }
-                      )
-                  );
-                },
-*/
-                child: Container(
-                  margin: const EdgeInsets.only(top: 10, left: 0),
-                  /*child: Image.asset('android/Images/4.png'
-                  ),*/
-                ),
-              ),
+            ),
+          ),
+          SizedBox(
+            width: 20,
+          ),
 
 
-              InkWell(
-                onTap: (){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context)
-                          {
-                            return  AddItem();
-                          }
-                      )
-                  );
-                },
+        ],
+        ),
 
-                child: Container(
+        ),
 
-                  height: 50,
-                  width: 200,
-                  color: Color.fromRGBO(26, 59, 106, 0.9294117647058824),
-                  child: Center(child: Text("Add Profile")),
 
-                ),
-              ),
 
+            ] else if(status == "No")...[
+              Text("Your Profile Is In Approval Status")
 
             ],
-          ),
-        );
-//return logic if the document exists based on uid
+          ],
+
+
+        ),
+      );
       }
     else if (sasapshot.connectionState ==
     ConnectionState.waiting) {
@@ -170,6 +198,7 @@ class _HomePageState extends State<HomePage> {
           ],
 
         ),
+
       );
     }
     }
