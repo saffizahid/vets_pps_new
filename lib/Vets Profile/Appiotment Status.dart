@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:vets_pps_new/Vets%20Profile/styles/colors.dart';
+import 'package:intl/intl.dart';
 
 import '../home_screen.dart';
 
@@ -108,7 +109,7 @@ class AricleScreenState extends State<AricleScreen>
                             stream: FirebaseFirestore.instance
                                 .collection("booking")
                                 .where(
-                              "vetid",
+                              "serviceId",
                               isEqualTo: FirebaseAuth.instance.currentUser!.uid,
                             )
                                 .snapshots(),
@@ -126,10 +127,16 @@ class AricleScreenState extends State<AricleScreen>
                                     itemCount: snapshot.data.docs.length,
                                     itemBuilder: (context, index) {
                                       var document =snapshot.data.docs[index];
-                                      var status = document!['status'];
-                                      var USERID = document['userid'];
+                                      var status = document!['userName'];
+                                      var USERID = document['userId'];
                                       var bookingID = document.id;
-                                      var AppiotmentStatus = document['status'];
+                                      var AppiotmentStatus = document['userName'];
+                                      var DateTimeOld =DateTime.tryParse(document['bookingStart']);
+                                      var DateLatest = DateFormat.yMMMEd().format(DateTimeOld!);
+                                      var TimeLatest = DateFormat.jm().format(DateTimeOld!);
+
+                                      print(DateLatest);
+                                      print(TimeLatest);
 
 
                                       return Column(
@@ -310,7 +317,7 @@ class AricleScreenState extends State<AricleScreen>
                                                                           width: 5,
                                                                         ),
                                                                         Text(
-                                                                          document['BookingDate'],
+                                                                          DateLatest,
                                                                           style: TextStyle(
                                                                             fontSize: 12,
                                                                             color: Color(
@@ -337,7 +344,7 @@ class AricleScreenState extends State<AricleScreen>
                                                                           width: 5,
                                                                         ),
                                                                         Text(
-                                                                          document['BookingTime'],
+                                                                        TimeLatest,
                                                                           style: TextStyle(
                                                                             color: Color(
                                                                                 MyColors
@@ -358,13 +365,31 @@ class AricleScreenState extends State<AricleScreen>
                                                               Row(
                                                                 children: [
                                                                   InkWell(
-                                                                    onTap: () async {
-                                                                      final _db = FirebaseFirestore.instance;
+                                                                    onTap: () {
+                                                                      showDialog(
+                                                                        context: context,
+                                                                        builder: (ctx) => AlertDialog(
+                                                                          title: const Text("Cancel Booking"),
+                                                                          content: const Text("Are you sure you want to cancel this booking"),
+                                                                          actions: <Widget>[
+                                                                            TextButton(
+                                                                              child: const Text('No'),
+                                                                              onPressed: () {
+                                                                                Navigator.of(context).pop();
+                                                                              },
+                                                                            ),
+                                                                            TextButton(
+                                                                              child: const Text('Yes'),
+                                                                              onPressed: () async {
+                                                                                final _db = FirebaseFirestore.instance;
 
-                                                                      await _db.collection("booking").doc(bookingID).update({
-                                                                        "status": "Canceled"
-                                                                      });
-
+                                                                                await _db.collection("booking").doc(bookingID).update({
+                                                                                  "userName": "Canceled"
+                                                                                });
+                                                                              },
+                                                                            ),
+                                                                          ],),
+                                                                      );
                                                                     },
                                                                     child: Container(
                                                                       height:42,
@@ -382,13 +407,31 @@ class AricleScreenState extends State<AricleScreen>
                                                                     width: 10,
                                                                   ),
                                                                   InkWell(
-                                                                    onTap: () async {
-                                                                      final _db = FirebaseFirestore.instance;
+                                                                    onTap: () {
+                                                                      showDialog(
+                                                                        context: context,
+                                                                        builder: (ctx) => AlertDialog(
+                                                                          title: const Text("Accept Booking"),
+                                                                          content: const Text("Are you sure you want to Accept this booking"),
+                                                                          actions: <Widget>[
+                                                                            TextButton(
+                                                                              child: const Text('No'),
+                                                                              onPressed: () {
+                                                                                Navigator.of(context).pop();
+                                                                              },
+                                                                            ),
+                                                                            TextButton(
+                                                                              child: const Text('Yes'),
+                                                                              onPressed: () async {
+                                                                                final _db = FirebaseFirestore.instance;
 
-                                                                      await _db.collection("booking").doc(bookingID).update({
-                                                                        "status": "Accepted"
-                                                                      });
-
+                                                                                await _db.collection("booking").doc(bookingID).update({
+                                                                                  "userName": "Accepted"
+                                                                                });
+                                                                              },
+                                                                            ),
+                                                                          ],),
+                                                                      );
                                                                     },
                                                                     child: Container(
                                                                       height:42,
@@ -409,13 +452,31 @@ class AricleScreenState extends State<AricleScreen>
                                                                 height: 10,
                                                               ),
                                                               InkWell(
-                                                                onTap: () async {
-                                                                  final _db = FirebaseFirestore.instance;
+                                                                onTap: () {
+                                                                  showDialog(
+                                                                    context: context,
+                                                                    builder: (ctx) => AlertDialog(
+                                                                      title: const Text("Cancel Booking"),
+                                                                      content: const Text("Are you sure you want to cancel this booking"),
+                                                                      actions: <Widget>[
+                                                                        TextButton(
+                                                                          child: const Text('No'),
+                                                                          onPressed: () {
+                                                                            Navigator.of(context).pop();
+                                                                          },
+                                                                        ),
+                                                                        TextButton(
+                                                                          child: const Text('Yes'),
+                                                                          onPressed: () async {
+                                                                            final _db = FirebaseFirestore.instance;
 
-                                                                  await _db.collection("booking").doc(bookingID).update({
-                                                                    "status": "Completed"
-                                                                  });
-
+                                                                            await _db.collection("booking").doc(bookingID).update({
+                                                                              "userName": "Completed"
+                                                                            });
+                                                                          },
+                                                                        ),
+                                                                      ],),
+                                                                  );
                                                                 },
                                                                 child: Container(
                                                                   height:42,
@@ -476,7 +537,7 @@ class AricleScreenState extends State<AricleScreen>
                             stream: FirebaseFirestore.instance
                                 .collection("booking")
                                 .where(
-                              "vetid",
+                              "serviceId",
                               isEqualTo: FirebaseAuth.instance.currentUser!.uid,
                             )
                                 .snapshots(),
@@ -494,11 +555,13 @@ class AricleScreenState extends State<AricleScreen>
                                     itemCount: snapshot.data.docs.length,
                                     itemBuilder: (context, index) {
                                       var document =snapshot.data.docs[index];
-                                      var status = document!['status'];
-                                      var USERID = document['userid'];
+                                      var status = document!['userName'];
+                                      var USERID = document['userId'];
                                       var bookingID = document.id;
-                                      var AppiotmentStatus = document['status'];
-
+                                      var AppiotmentStatus = document['userName'];
+                                      var DateTimeOld =DateTime.tryParse(document['bookingStart']);
+                                      var DateLatest = DateFormat.yMMMEd().format(DateTimeOld!);
+                                      var TimeLatest = DateFormat.jm().format(DateTimeOld!);
 
                                       return Column(
                                         children: [
@@ -678,7 +741,7 @@ class AricleScreenState extends State<AricleScreen>
                                                                           width: 5,
                                                                         ),
                                                                         Text(
-                                                                          document['BookingDate'],
+                                                                  DateLatest,
                                                                           style: TextStyle(
                                                                             fontSize: 12,
                                                                             color: Color(
@@ -705,7 +768,7 @@ class AricleScreenState extends State<AricleScreen>
                                                                           width: 5,
                                                                         ),
                                                                         Text(
-                                                                          document['BookingTime'],
+                                                                        TimeLatest,
                                                                           style: TextStyle(
                                                                             color: Color(
                                                                                 MyColors

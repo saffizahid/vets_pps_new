@@ -24,6 +24,7 @@ class _MyAppNewState extends State<MyAppNew> {
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim());
+        Center(child: CircularProgressIndicator());
 
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

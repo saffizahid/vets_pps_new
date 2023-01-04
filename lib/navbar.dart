@@ -93,7 +93,7 @@ class NavBar extends StatelessWidget {
             onTap: () => null,
           ),
           Divider(),
-          ListTile(
+         /* ListTile(
             title: Text('Logout',style: TextStyle(
               color: Colors.white,
             )),
@@ -126,6 +126,14 @@ class NavBar extends StatelessWidget {
               });
               }
             }
+          ),*/
+
+          ListTile(
+            title: Text('Logout',style: TextStyle(
+              color: Colors.white,
+            )),
+            leading: Icon(Icons.exit_to_app,color: Colors.white,),
+            onTap: () => FirebaseAuth.instance.signOut(),
           ),
         ],
       ),

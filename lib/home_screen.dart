@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
 
 
 
-            ] else if(status == "No")...[
+            ] else if(status == "UnApproved")...[
               Text("Your Profile Is In Approval Status")
 
             ],
