@@ -386,6 +386,8 @@ class AricleScreenState extends State<AricleScreen>
                                                                                 await _db.collection("booking").doc(bookingID).update({
                                                                                   "userName": "Canceled"
                                                                                 });
+                                                                                Navigator.of(context).pop();
+
                                                                               },
                                                                             ),
                                                                           ],),
@@ -406,88 +408,104 @@ class AricleScreenState extends State<AricleScreen>
                                                                   SizedBox(
                                                                     width: 10,
                                                                   ),
-                                                                  InkWell(
-                                                                    onTap: () {
-                                                                      showDialog(
-                                                                        context: context,
-                                                                        builder: (ctx) => AlertDialog(
-                                                                          title: const Text("Accept Booking"),
-                                                                          content: const Text("Are you sure you want to Accept this booking"),
-                                                                          actions: <Widget>[
-                                                                            TextButton(
-                                                                              child: const Text('No'),
-                                                                              onPressed: () {
-                                                                                Navigator.of(context).pop();
-                                                                              },
-                                                                            ),
-                                                                            TextButton(
-                                                                              child: const Text('Yes'),
-                                                                              onPressed: () async {
-                                                                                final _db = FirebaseFirestore.instance;
+                                                                  if (status == "In Process") ...[
+                                                                    InkWell(
+                                                                      onTap: () {
+                                                                        showDialog(
+                                                                          context: context,
+                                                                          builder: (ctx) => AlertDialog(
+                                                                            title: const Text("Accept Booking"),
+                                                                            content: const Text("Are you sure you want to Accept this booking"),
+                                                                            actions: <Widget>[
+                                                                              TextButton(
+                                                                                child: const Text('No'),
+                                                                                onPressed: () {
+                                                                                  Navigator.of(context).pop();
+                                                                                },
+                                                                              ),
+                                                                              TextButton(
+                                                                                child: const Text('Yes'),
+                                                                                onPressed: () async {
+                                                                                  final _db = FirebaseFirestore.instance;
 
-                                                                                await _db.collection("booking").doc(bookingID).update({
-                                                                                  "userName": "Accepted"
-                                                                                });
-                                                                              },
-                                                                            ),
-                                                                          ],),
-                                                                      );
-                                                                    },
-                                                                    child: Container(
-                                                                      height:42,
-                                                                      width:155,
-                                                                      decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
-                                                                          borderRadius: BorderRadius.circular(5)
+                                                                                  await _db.collection("booking").doc(bookingID).update({
+                                                                                    "userName": "Accepted"
+                                                                                  }
+                                                                                  );
+                                                                                  Navigator.of(context).pop();
+
+                                                                                },
+                                                                              ),
+                                                                            ],),
+                                                                        );
+                                                                      },
+                                                                      child: Container(
+                                                                        height:42,
+                                                                        width:155,
+                                                                        decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
+                                                                            borderRadius: BorderRadius.circular(5)
+
+                                                                        ),
+
+                                                                        child: Center(child: Text('Accept',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
 
                                                                       ),
-
-                                                                      child: Center(child: Text('Accept',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
-
                                                                     ),
-                                                                  ),
+
+                                                                  ]
+                                                                  else
+                                                                    ...[
+                                                                      InkWell(
+                                                                        onTap: () {
+                                                                          showDialog(
+                                                                            context: context,
+                                                                            builder: (ctx) => AlertDialog(
+                                                                              title: const Text("Complete Booking"),
+                                                                              content: const Text("Are you sure you want to Complete this booking"),
+                                                                              actions: <Widget>[
+                                                                                TextButton(
+                                                                                  child: const Text('No'),
+                                                                                  onPressed: () {
+                                                                                    Navigator.of(context).pop();
+                                                                                  },
+                                                                                ),
+                                                                                TextButton(
+                                                                                  child: const Text('Yes'),
+                                                                                  onPressed: () async {
+                                                                                    final _db = FirebaseFirestore.instance;
+
+                                                                                    await _db.collection("booking").doc(bookingID).update({
+                                                                                      "userName": "Completed"
+                                                                                    }
+                                                                                    );
+                                                                                    Navigator.of(context).pop();
+
+                                                                                  },
+                                                                                ),
+                                                                              ],),
+                                                                          );
+                                                                        },
+                                                                        child: Container(
+                                                                          height:42,
+                                                                          width:155,
+                                                                          decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
+                                                                              borderRadius: BorderRadius.circular(5)
+
+                                                                          ),
+
+                                                                          child: Center(child: Text('Completed',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+
+                                                                        ),
+                                                                      ),
+
+                                                                    ],
+
+
 
                                                                 ],
                                                               ),
                                                               SizedBox(
                                                                 height: 10,
-                                                              ),
-                                                              InkWell(
-                                                                onTap: () {
-                                                                  showDialog(
-                                                                    context: context,
-                                                                    builder: (ctx) => AlertDialog(
-                                                                      title: const Text("Cancel Booking"),
-                                                                      content: const Text("Are you sure you want to cancel this booking"),
-                                                                      actions: <Widget>[
-                                                                        TextButton(
-                                                                          child: const Text('No'),
-                                                                          onPressed: () {
-                                                                            Navigator.of(context).pop();
-                                                                          },
-                                                                        ),
-                                                                        TextButton(
-                                                                          child: const Text('Yes'),
-                                                                          onPressed: () async {
-                                                                            final _db = FirebaseFirestore.instance;
-
-                                                                            await _db.collection("booking").doc(bookingID).update({
-                                                                              "userName": "Completed"
-                                                                            });
-                                                                          },
-                                                                        ),
-                                                                      ],),
-                                                                  );
-                                                                },
-                                                                child: Container(
-                                                                  height:42,
-                                                                  decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
-                                                                      borderRadius: BorderRadius.circular(5)
-
-                                                                  ),
-
-                                                                  child: Center(child: Text('Completed',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
-
-                                                                ),
                                                               ),
                                                               SizedBox(
                                                                 width: 20,

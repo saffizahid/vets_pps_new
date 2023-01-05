@@ -171,7 +171,7 @@ class _UserdetailsPageState extends State<UserdetailsPage> {
                             Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.02),
                               child: Text("Vet Liceance:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
                             Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.02, bottom: height*0.0),
-                              child: Text("${document['VetLiceance']} years of Experience"),),
+                              child: Text("${document['VetLiceance']}"),),
 
                             Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.02),
                               child: Text("Experience:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
