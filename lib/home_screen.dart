@@ -42,9 +42,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       drawer: NavBar(),
       appBar: AppBar(
-        title: Text('Hi, '+ user.email!,style: TextStyle(color: Color.fromRGBO(26, 59, 106, 1.0), fontSize: 15),),
+        title: Text('Home Page'!,style: TextStyle(color: Colors.white, fontSize: 16),),
         centerTitle: true,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color.fromRGBO(26, 59, 106, 1.0),
         elevation: 0,
 
       ),
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
         InkWell(
 
         child: Container(
-        margin: const EdgeInsets.only(top: 10, left: 0),
+        margin: const EdgeInsets.only(top: 80, left: 0),
         //child: Image.asset('android/Images/3.png'
         //),
         ),

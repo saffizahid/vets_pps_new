@@ -31,6 +31,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
   TextEditingController pricecontroller = TextEditingController();
   TextEditingController subtitleController = TextEditingController();
   TextEditingController SpecializationController = TextEditingController();
+  TextEditingController QualificationController = TextEditingController();
 
   String dropdownValue="Mr.";
   String imageLink='';
@@ -68,7 +69,9 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
       //'last name': lastNameController.text,
       'year': _currentValue.toString(),
       'subtitle': subtitleController.text,//dropdownValue,
-      'specialization': SpecializationController.text,//dropdownValue,
+      'specialization': SpecializationController.text,
+      'qualification': QualificationController.text,//dropdownValue,
+      //dropdownValue,
       'phone number': phoneNumberController.text,
       'email': currentUser?.email,
       'cnic': cnicController.text,
@@ -80,7 +83,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
       'description': yourselfController.text,
       'profileImg': imageLink,
       'price': pricecontroller.text,
-      'ProfileStatus': "No"
+      'ProfileStatus': "UnApproved"
     },
     );
   }
@@ -157,7 +160,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
             ///////////////////////////////////////////////////////////First Name Field /////////////////////////////////////////////////////////////////////////////////////////////////
 
             SizedBox(height: height*0.03,),
-            TextField(
+            TextFormField(
               controller: firstNameController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
@@ -165,10 +168,11 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
                 labelText: 'Enter Your Full Name',
               ),
+              
             ),
 
             SizedBox(height: height*0.02,),
-            TextField(
+            TextFormField(
               controller: phoneNumberController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -176,10 +180,16 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
                 labelText: 'Phone Number',
               ),
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'This field is required';
+                }
+              },
+
             ),
 
             SizedBox(height: height*0.02,),
-            TextField(
+            TextFormField(
               controller: cnicController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -187,13 +197,35 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
                 labelText: 'C.N.I.C',
               ),
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'This field is required';
+                }
+              },
+
             ),
 
             ///////////////////////////////////////////////////////////Describe Field /////////////////////////////////////////////////////////////////////////////////////////////////
             SizedBox(height: height*0.02,),
             const Center(child: Text("Vet Information",style: TextStyle(color: Color.fromRGBO(26, 59, 106, 1.0),fontWeight: FontWeight.bold,fontSize: 19,),)),
             SizedBox(height: height*0.02,),
-            TextField(
+             TextFormField(
+              controller: QualificationController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.person),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
+                labelText: 'Enter Your Qualification',
+              ),
+               validator: (value) {
+                 if (value == null || value.trim().isEmpty) {
+                   return 'This field is required';
+                 }
+               },
+
+             ),
+            SizedBox(height: height*0.02,),
+            TextFormField(
               controller: SpecializationController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
@@ -201,6 +233,12 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
                 labelText: 'Enter Your Specialization',
               ),
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'This field is required';
+                }
+              },
+
             ),
 
             Row(
@@ -221,7 +259,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
               ],
             ),
             SizedBox(height: height*0.02,),
-            TextField(
+            TextFormField(
               controller: LiceanceController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -229,11 +267,17 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
                 labelText: 'Vet Licence Number ',
               ),
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'This field is required';
+                }
+              },
+
             ),
             SizedBox(height: height*0.02,),
             SizedBox(
               height: height*0.2,
-              child: TextField(
+              child: TextFormField(
                 controller: yourselfController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
@@ -242,6 +286,12 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
                   labelText: 'Write About YourSelf.',
                 ),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'This field is required';
+                  }
+                },
+
               ),
             ),
 
@@ -283,7 +333,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
             ),
             ///////////////////////////////////////////////////////////Location text Field /////////////////////////////////////////////////////////////////////////////////////////////////
  */ SizedBox(height: height*0.02,),
-      TextField(
+      TextFormField(
         controller: ClinicController,
         keyboardType: TextInputType.text,
         decoration: InputDecoration(
@@ -291,11 +341,17 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
           labelText: 'Enter Your Clinic Name',
         ),
+        validator: (value) {
+          if (value == null || value.trim().isEmpty) {
+            return 'This field is required';
+          }
+        },
+
       ),
             SizedBox(height: height*0.02,),
             const Center(child: Text("Vet Information",style: TextStyle(color: Color.fromRGBO(26, 59, 106, 1.0),fontWeight: FontWeight.bold,fontSize: 19,),)),
             SizedBox(height: height*0.02,),
-            TextField(
+            TextFormField(
               controller: subtitleController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
@@ -303,10 +359,16 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
                 labelText: 'Enter Your Job Description',
               ),
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'This field is required';
+                }
+              },
+
             ),
 
            SizedBox(height: height*0.02,),
-            TextField(
+            TextFormField(
               controller: locationController,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
@@ -314,6 +376,12 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
                 labelText: 'Location',
               ),
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'This field is required';
+                }
+              },
+
             ),
             ///////////////////////////////////////////////////////////Phone Number Field /////////////////////////////////////////////////////////////////////////////////////////////////
             SizedBox(height:height*0.02,),
@@ -327,7 +395,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
               ],
             ),
             SizedBox(height: height*0.02,),
-            TextField(
+            TextFormField(
               controller: pricecontroller,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -335,6 +403,12 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
                 labelText: 'Enter Your Checkup Charges',
               ),
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'This field is required';
+                }
+              },
+
             ),
             SizedBox(height: height*0.02,),
 

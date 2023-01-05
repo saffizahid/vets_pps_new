@@ -5,6 +5,8 @@ import 'package:vets_pps_new/auth_page.dart';
 import 'package:vets_pps_new/sign.up_screen.dart';
 import 'package:vets_pps_new/signin_screen.dart';
 
+import 'Doctor List/detailsnew.dart';
+
 class NavBar extends StatelessWidget {
   final user= FirebaseAuth.instance.currentUser!;
   GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -31,7 +33,7 @@ class NavBar extends StatelessWidget {
             accountEmail: Text('How is Your Pet Health?' ,style: TextStyle(
               color: Colors.white,
             )),
-            currentAccountPicture: CircleAvatar(
+            /*currentAccountPicture: CircleAvatar(
               child: ClipOval(
                 child: Image.asset('android/Images/logo.png',
                   fit: BoxFit.fitHeight,
@@ -40,7 +42,7 @@ class NavBar extends StatelessWidget {
                 ),
               ),
             ),
-            decoration: BoxDecoration(
+            */decoration: BoxDecoration(
               //color:Color.fromRGBO(26, 59, 106, 0.023529411764705882),
             ),
           ),
@@ -50,7 +52,11 @@ class NavBar extends StatelessWidget {
             title: Text('Profile',style: TextStyle(
               color: Colors.white,
             )),
-            onTap: () => null,
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return UserdetailsPage();
+              }));
+            },
           ),
          /* ListTile(
             leading: Icon(Icons.ballot_outlined,color: Colors.white,),
@@ -72,27 +78,27 @@ class NavBar extends StatelessWidget {
               color: Colors.white,
             )),
           ),*/
-          ListTile(
+         /* ListTile(
             leading: Icon(Icons.list_alt_outlined,color: Colors.white,),
             title: Text('Reminders',style: TextStyle(
               color: Colors.white,
             )),
           ),
-          ListTile(
+         */ ListTile(
             leading: Icon(Icons.settings,color: Colors.white,),
             title: Text('Settings',style: TextStyle(
               color: Colors.white,
             )),
             onTap: () => null,
           ),
-          ListTile(
+          /*ListTile(
             leading: Icon(Icons.description,color: Colors.white,),
             title: Text('Policies',style: TextStyle(
               color: Colors.white,
             )),
             onTap: () => null,
           ),
-          Divider(),
+          */Divider(),
          /* ListTile(
             title: Text('Logout',style: TextStyle(
               color: Colors.white,
