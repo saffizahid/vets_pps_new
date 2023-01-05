@@ -124,42 +124,109 @@ class _UserdetailsPageState extends State<UserdetailsPage> {
                               child: Text(document['name'],style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),),
                             Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.0,),
                               child: Text(document['subtitle'],style: TextStyle(color: Colors.black54,fontSize: 16),),),
+                            Divider(
+                                height: 20,
+                                thickness: 3,
+                                indent: 40,
+                                endIndent: 40,
+                                color: Color.fromRGBO(26, 59, 106, 1.0)
+                            ),
+                            const Center(child: Text("PERSONAL INFORMATION",style: TextStyle(color: Color.fromRGBO(26, 59, 106, 1.0),fontWeight: FontWeight.bold,fontSize: 14,),)),
+                            Divider(
+                                height: 20,
+                                thickness: 3,
+                                indent: 40,
+                                endIndent: 40,
+                                color: Color.fromRGBO(26, 59, 106, 1.0)
+                            ),
 
-                            Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.04),
+                            Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.02),
+                              child: Text("Email:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
+                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.02, bottom: height*0.0),
+                              child: Text("${document['email']}"),),
+
+                            Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.02),
+                              child: Text("Phone Number:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
+                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.02, bottom: height*0.0),
+                              child: Text("${document['phone number']}"),),
+                            Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.01),
+                              child: Text("Cnic:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
+                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.02, bottom: height*0.01),
+                              child: Text("${document['cnic']}"),),
+                            Divider(
+                                height: 20,
+                                thickness: 3,
+                                indent: 40,
+                                endIndent: 40,
+                                color: Color.fromRGBO(26, 59, 106, 1.0)
+                            ),
+                            const Center(child: Text("VET INFORMATION",style: TextStyle(color: Color.fromRGBO(26, 59, 106, 1.0),fontWeight: FontWeight.bold,fontSize: 14,),)),
+                            Divider(
+                                height: 20,
+                                thickness: 3,
+                                indent: 40,
+                                endIndent: 40,
+                                color: Color.fromRGBO(26, 59, 106, 1.0)
+                            ),
+                            Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.02),
+                              child: Text("Vet Liceance:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
+                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.02, bottom: height*0.0),
+                              child: Text("${document['VetLiceance']} years of Experience"),),
+
+                            Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.02),
                               child: Text("Experience:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
-                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.02, bottom: height*0.02),
+                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.02, bottom: height*0.0),
                               child: Text("${document['year']} years of Experience"),),
 
-                            Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.01),
+                            Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.02),
                               child: Text("Qualification:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
-                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.01, bottom: height*0.01),
+                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.02, bottom: height*0.01),
                               child: Text(document['qualification']),),
 
                             Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.01),
                               child: Text("Specialization:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
                             Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.01, bottom: height*0.01),
                               child: Text(document['specialization']),),
+                            Divider(
+                                height: 20,
+                                thickness: 3,
+                                indent: 40,
+                                endIndent: 40,
+                                color: Color.fromRGBO(26, 59, 106, 1.0)
+                            ),
+                            const Center(child: Text("VET INFORMATION",style: TextStyle(color: Color.fromRGBO(26, 59, 106, 1.0),fontWeight: FontWeight.bold,fontSize: 14,),)),
+                            Divider(
+                                height: 20,
+                                thickness: 3,
+                                indent: 40,
+                                endIndent: 40,
+                                color: Color.fromRGBO(26, 59, 106, 1.0)
+                            ),
+                            Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.01),
+                              child: Text("Clinic Name:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
+                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.02, bottom: height*0.0),
+                              child: Text(document['ClinicName']),),
 
                             Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.01),
                               child: Text("Location:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
-                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.02, bottom: height*0.02),
+                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.02, bottom: height*0.0),
                               child: Text(document['location']),),
 
                             Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.01),
                               child: Text("Timing:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
-                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.02),
+                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.01),
                               child: Text("Monday - Friday"),),
-                            Padding(padding: EdgeInsets.only(left: width*0.06,top: height*0.01, bottom: height*0.02),
+                            Padding(padding: EdgeInsets.only(left: width*0.06,top: height*0.01, bottom: height*0.0),
                               child: Text("${document['start time']} to ${document['end time']}"),),
 
                             Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.01),
                               child: Text("Charges:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
-                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.02, bottom: height*0.02),
+                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.01, bottom: height*0.0),
                               child: Text("Rs: ${document['price']} "),),
 
                             Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.01),
                               child: Text("About:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
-                            Padding(padding: EdgeInsets.only(left: width*0.02,right:width*0.02, top: height*0.02, bottom: height*0.01),
+                            Padding(padding: EdgeInsets.only(left: width*0.02,right:width*0.02, top: height*0.01, bottom: height*0.01),
                               child: Text('${document['description']}',style: TextStyle(),textAlign: TextAlign.justify,
                               ),),
 
