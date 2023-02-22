@@ -1,8 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'sign.up_screen.dart';
-import 'signin_screen.dart';
 import 'mainpage2.dart';
 
 Future main() async {

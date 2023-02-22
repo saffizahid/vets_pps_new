@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vets_pps_new/navbar.dart';
+import 'Clinics/page/ClinicsList.dart';
 import 'Doctor List/add_item.dart';
+import 'Service Crud/page/listpagesec.dart';
 import 'Vets Profile/Appiotment Status.dart';
 import 'Vets Profile/register_screen.dart';
 import 'main.dart';
@@ -139,6 +141,68 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             width: 20,
           ),
+
+/*
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context)
+                      {
+                        return  ListPageSec();
+                      }
+                  )
+              );
+
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(top:50),
+              child: Container(
+                height:80,
+                decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
+                    borderRadius: BorderRadius.circular(5)
+
+                ),
+
+                child: Center(child: Text('Click Here to See Your Services',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+
+              ),
+            ),
+          ),*/
+          SizedBox(
+            width: 20,
+          ),
+
+
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context)
+                      {
+                        return  ClinicLists();
+                      }
+                  )
+              );
+
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(top:50),
+              child: Container(
+                height:80,
+                decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
+                    borderRadius: BorderRadius.circular(5)
+
+                ),
+
+                child: Center(child: Text('Clinics ',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+
+              ),
+            ),
+          ),
+
 
 
         ],

@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:vets_pps_new/auth_page.dart';
-import 'package:vets_pps_new/sign.up_screen.dart';
-import 'package:vets_pps_new/signin_screen.dart';
 
 import 'Doctor List/detailsnew.dart';
 

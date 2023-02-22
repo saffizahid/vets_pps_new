@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'main.dart';
-import 'sign.up_screen.dart';
-import 'home_screen.dart';
 import 'Forgot_pass.dart';
+import 'sign.up_screen.dart';
 class MyAppNew extends StatefulWidget {
   final VoidCallback showRegisterPage;
   const MyAppNew({Key? key,required this.showRegisterPage}) : super(key: key);
