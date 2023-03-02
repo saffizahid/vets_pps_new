@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../home_screen.dart';
+import '../CLINICVETS/home_screen_clinics.dart';
 import 'add_item.dart';
 import 'item_details.dart';
 
@@ -34,7 +34,7 @@ class ItemList extends StatelessWidget {
                 MaterialPageRoute(
                     builder: (context)
                     {
-                      return  HomePage();
+                      return  HomePageClinics();
                     }
                 )
             );

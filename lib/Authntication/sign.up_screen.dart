@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:image_picker/image_picker.dart';
 class Signup extends StatefulWidget {
   final VoidCallback showloginpage;
   const Signup({Key? key,required this.showloginpage}) : super(key: key);
@@ -18,94 +16,25 @@ class _SignupState extends State<Signup> {
   final _emailController= TextEditingController();
   final _passwordController= TextEditingController();
   final _confirmpasswordController= TextEditingController();
-  //Controllers For User Profile Input
-  final user_firstname = TextEditingController();
-  final user_lastname = TextEditingController();
-  final user_email = TextEditingController();
-  final user_phnumber = TextEditingController();
-  final user_CNIC = TextEditingController();
-
-
-
   @override
-
 
   Future<void> dispose() async {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmpasswordController.dispose();
-    user_firstname.dispose();
-    user_lastname.dispose();
-    user_email.dispose();
-    user_phnumber.dispose();
-    user_CNIC.dispose();
 
     super.dispose();
   }
+  String _profileType = 'vetathome';
 
-  /*Future signUp() async{
-   if(passwordConfirmed())
-     {
-       try {
-         final User? user =
-             (await FirebaseAuth.instance.signInWithEmailAndPassword(
-               email: _emailController.text,
-               password: _passwordController.text,
-             ))
-                 .user;
-         FirebaseFirestore.instance.collection('users').doc().set({
-           'uid': user!.uid,
-           'firstname': user_firstname.text,
-           'lastname': user_lastname.text,
-           'email': _emailController.text,
-           'phnumber': user_phnumber.text,
-           'CNIC': user_CNIC.text
-         });
-         print("Created");
-       } catch (e) {
-         print(e.toString());
-       }
 
-       *//*await FirebaseAuth.instance.createUserWithEmailAndPassword(
-           email: _emailController.text.trim(),
-           password: _passwordController.text.trim());
-*//*
-      *//* var response = await FirebaseCrud.addUser(
-           firstname: user_firstname.text,
-           lastname: user_lastname.text,
-           email: _emailController.text,
-           phnumber: user_phnumber.text,
-           CNIC: user_CNIC.text
-       );*//*
-     }
-   *//*storeNewUser(user) async {
-     var firebaseUser = await FirebaseAuth.instance.currentUser();
-     FirebaseFirestore.instance
-         .collection('users')
-         .doc(firebaseUser.uid)
-         .set({'email': user.email, 'uid': user.uid})
-         .then((value) {})
-         .catchError((e) {
-       print(e);
-     });
-   }
-*//*
-  }
-*/
 //BACKEND CODE FOR SIGNUP AND USER PROFILE CREATION
   Future<void> signUp() async {
     final User? currentUser = (await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _emailController.text, password: _passwordController.text)).user;
     FirebaseFirestore.instance.collection("login").doc(currentUser?.uid).set({
       "uid": currentUser?.uid,
-      "Profile": "Vet"
-/*
-      'firstname': user_firstname.text,
-      'lastname': user_lastname.text,
-      'email': _emailController.text,
-      'phnumber': user_phnumber.text,
-      'CNIC': user_CNIC.text,
-      'profileImg': "https://cdn-icons-png.flaticon.com/512/21/21104.png",
-*/
+      "Profile": _profileType
+
     },
     );
   }
@@ -158,9 +87,8 @@ class _SignupState extends State<Signup> {
 
 
               Container(
-                height: 100,
+                height: 60,
                 width: 100,
-                //decoration: BoxDecoration(image: DecorationImage(image: FileImage(_image,),fit: BoxFit.contain)),
               ),
 
               Container(
@@ -218,7 +146,37 @@ class _SignupState extends State<Signup> {
                         ),
                       )
                   )),
-
+              Container(
+                padding: const EdgeInsets.only(top: 10,left: 10,right: 5),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: Text('VET AT HOME',style: TextStyle(color:Color.fromRGBO(26, 59, 106, 1.0) , fontSize: 15,fontWeight: FontWeight.bold),),
+                        value: 'vetathome',
+                        groupValue: _profileType,
+                        onChanged: (value) {
+                          setState(() {
+                            _profileType = value!;
+                          });
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: Text('CLINIC',style: TextStyle(color:Color.fromRGBO(26, 59, 106, 1.0) , fontSize: 15,fontWeight: FontWeight.bold),),
+                        value: 'clinic',
+                        groupValue: _profileType,
+                        onChanged: (value) {
+                          setState(() {
+                            _profileType = value!;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
 
               GestureDetector(
                 onTap: signUp,

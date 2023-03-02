@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:vets_pps_new/Vets%20Profile/styles/colors.dart';
 import 'package:intl/intl.dart';
 
-import '../home_screen.dart';
+import '../CLINICVETS/home_screen_clinics.dart';
 
 class AricleScreen extends StatefulWidget {
   AricleScreen();
@@ -50,7 +50,7 @@ class AricleScreenState extends State<AricleScreen>
           leading: GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return HomePage();
+                return HomePageClinics();
               }));
             },
             child: Icon(

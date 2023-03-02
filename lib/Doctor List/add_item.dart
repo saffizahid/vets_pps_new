@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import '../home_screen.dart';
+import '../CLINICVETS/home_screen_clinics.dart';
 import 'common/header_widget.dart';
 import 'common/theme_helper.dart';
 
@@ -51,7 +51,7 @@ class _AddItemState extends State<AddItem> {
     MaterialPageRoute(
     builder: (context)
     {
-    return  HomePage();
+    return  HomePageClinics();
     }
     )
     );
@@ -260,7 +260,7 @@ class _AddItemState extends State<AddItem> {
                             MaterialPageRoute(
                                 builder: (context)
                                 {
-                                  return  HomePage();
+                                  return  HomePageClinics();
                                 }
                             )
                         );
