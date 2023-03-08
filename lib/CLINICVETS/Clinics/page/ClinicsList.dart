@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:vets_pps_new/CLINICVETS/Clinics/services/firebase_crud.dart';
-import '../../../ServiceNew/service_list.dart';
+import '../../../AddServicesCrud/service_list.dart';
 import '../models/clinics.dart';
 import 'addpagesec.dart';
 import 'editpagesec.dart';

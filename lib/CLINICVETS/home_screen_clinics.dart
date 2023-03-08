@@ -175,7 +175,7 @@ class _HomePageClinicsState extends State<HomePageClinics> {
                               ),
                             ),
                           ),
-                          InkWell(
+                          /*InkWell(
                             onTap: () {
                               Navigator.push(
                                   context,
@@ -202,7 +202,7 @@ class _HomePageClinicsState extends State<HomePageClinics> {
                               ),
                             ),
                           ),
-
+*/
 
 
 
