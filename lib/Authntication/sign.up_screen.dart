@@ -36,8 +36,19 @@ class _SignupState extends State<Signup> {
       "Profile": _profileType
 
     },
+
     );
+
+    FirebaseFirestore.instance.collection("vet_wallet").doc(currentUser?.uid).set({
+      "wallet": 0,
+
+    },
+
+    );
+
+
   }
+
 // CONFIRMED PASSWORD CODE
   bool passwordConfirmed(){
     if(_passwordController.text.trim() == _confirmpasswordController.text.trim())

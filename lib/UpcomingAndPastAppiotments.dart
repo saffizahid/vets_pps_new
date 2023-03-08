@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:vets_pps_new/Vets%20Profile/styles/colors.dart';
 import 'package:intl/intl.dart';
 
-import '../CLINICVETS/home_screen_clinics.dart';
+import 'CLINICVETS/home_screen_clinics.dart';
+import 'Style/styles/colors.dart';
 
 class AricleScreen extends StatefulWidget {
   AricleScreen();

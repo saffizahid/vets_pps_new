@@ -2,9 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vets_pps_new/CLINICVETS/navbarCLinics.dart';
-import '../Doctor List/add_item.dart';
-import '../Vets Profile/Appiotment Status.dart';import 'Clinics/page/ClinicsList.dart';
-import 'register_screen_CLINICS.dart';
+import '../UpcomingAndPastAppiotments.dart';import 'Clinics/page/ClinicsList.dart';
+import 'Regiatration/register_screen_CLINICS.dart';
 import '../main.dart';
 
 

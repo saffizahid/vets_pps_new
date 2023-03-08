@@ -1,3 +1,4 @@
+/*
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,8 @@ class ItemDetails extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      /*appBar: AppBar(
+      */
+/*appBar: AppBar(
         title: Text('Item details'),
         actions: [
           IconButton(
@@ -42,7 +44,8 @@ class ItemDetails extends StatelessWidget {
           }, icon: Icon(Icons.delete))
         ],
       ),
-      */body: FutureBuilder<DocumentSnapshot>(
+      *//*
+body: FutureBuilder<DocumentSnapshot>(
         future: _futureData,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {
@@ -391,3 +394,4 @@ class ItemDetails extends StatelessWidget {
     );
   }
 }
+*/
