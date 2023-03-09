@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,7 +8,7 @@ import 'package:vets_pps_new/CLINICVETS/Clinics/services/firebase_crud.dart';
 import '../../home_screen_clinics.dart';
 import 'ClinicsList.dart';
 import 'checkbox.dart';
-
+import 'package:geolocator/geolocator.dart';
 class AddPageSec extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -110,6 +111,11 @@ class _AddPageSec extends State<AddPageSec> {
     }
   }
 
+  Future<Position> _getCurrentLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    return position;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,18 +151,11 @@ class _AddPageSec extends State<AddPageSec> {
 
 
    final clinicpinlocation = TextFormField(
-        controller: clinicClinic,
-        autofocus: false,
-        validator: (value) {
-          if (value == null || value.trim().isEmpty) {
-            return 'This field is required';
-          }
-        },
-        decoration: InputDecoration(
-            contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            hintText: "Pin Location",
-            border:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
+     controller: clinicClinic,
+     decoration: InputDecoration(
+       labelText: 'Pin location',
+       hintText: 'Tap the button to get your current location',
+     ),);
 
 
     final viewListbutton = TextButton(
@@ -362,7 +361,7 @@ class _AddPageSec extends State<AddPageSec> {
                       ),
 
                     const SizedBox(height: 35.0),
-                    clinicpinlocation,
+
                     const SizedBox(height: 2.0),
                     SaveButon,
                     
