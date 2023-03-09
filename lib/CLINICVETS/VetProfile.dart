@@ -15,12 +15,7 @@ class UserdetailsPage extends StatefulWidget {
 }
 
 class _UserdetailsPageState extends State<UserdetailsPage> {
-/*
 
-  DocumentSnapshot variable = await FirebaseFirestore.instance.collection('COLLECTION NAME').doc('DOCUMENT ID').get();
-
-
-*/
   final user= FirebaseAuth.instance.currentUser!;
 
   @override
@@ -33,14 +28,9 @@ class _UserdetailsPageState extends State<UserdetailsPage> {
             elevation: 10,
             actions:[Icon(Icons.edit),] ),
         body:StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection('vets')
-                .doc(user.uid) //ID OF DOCUMENT
-                .snapshots(),
+            stream: FirebaseFirestore.instance.collection('vets').doc(user.uid).snapshots(),
             builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return  CircularProgressIndicator();
-              }
+              if (!snapshot.hasData) {return  CircularProgressIndicator();}
               var document = snapshot.data;
               var ProfileImg = document!["profileImg"];
               var year = document['year'];
@@ -68,62 +58,8 @@ class _UserdetailsPageState extends State<UserdetailsPage> {
                               Radius.circular(15.0),
                                   topRight: Radius.circular(15.0)),color: Colors.white),
                           child:ListView(children: [
-                            /*                ListTile(
-                        title:
-                        subtitle: Text('${data['subtitle']}'),
-      ),*/
-                            /*  trailing: RatingBar.builder(
-                          initialRating: 4,
-                          minRating: 1,
-                          itemSize: 20,
-                          glow: false,
-                          direction: Axis.horizontal,
-                          allowHalfRating: true,
-                          itemCount: 5,
-                          itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-                          itemBuilder: (context, _) => Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                          ),
-                          onRatingUpdate: (rating) {
-                            print(rating);
-                          },
-                        ),
-                      */
-                            /*Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CircularPercentIndicator(
-                            radius: 40.0,
-                            footer: Text("Wait Time"),
-                            lineWidth: 5.0,
-                            percent: 0.25,
-                            center:  Text("25"),
-                            progressColor: Color.fromRGBO(25, 58, 106, 5),
-                          ),
-                          CircularPercentIndicator(
-                            radius: 40.0,
-                            footer: Text("Experience"),
-                            lineWidth: 5.0,
-                            percent: 0.99,
-                            center:  Text("16 yr"),
-                            progressColor: Color.fromRGBO(25, 58, 106, 5),
-                          ),
-                          CircularPercentIndicator(
-                            radius: 40.0,
-                            footer: Text("Satisfaction"),
-                            lineWidth: 5.0,
-                            percent: 0.98,
-                            center:  Text("98%"),
-                            progressColor: Color.fromRGBO(25, 58, 106, 5),
-                          )
-                        ],),
-
-                     */
                             Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.04),
                               child: Text(document['name'],style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),),
-                            Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.0,),
-                              child: Text(document['subtitle'],style: TextStyle(color: Colors.black54,fontSize: 16),),),
                             Divider(
                                 height: 20,
                                 thickness: 3,
@@ -194,67 +130,12 @@ class _UserdetailsPageState extends State<UserdetailsPage> {
                                 endIndent: 40,
                                 color: Color.fromRGBO(26, 59, 106, 1.0)
                             ),
-                            const Center(child: Text("VET INFORMATION",style: TextStyle(color: Color.fromRGBO(26, 59, 106, 1.0),fontWeight: FontWeight.bold,fontSize: 14,),)),
-                            Divider(
-                                height: 20,
-                                thickness: 3,
-                                indent: 40,
-                                endIndent: 40,
-                                color: Color.fromRGBO(26, 59, 106, 1.0)
-                            ),
-                            Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.01),
-                              child: Text("Clinic Name:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
-                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.02, bottom: height*0.0),
-                              child: Text(document['ClinicName']),),
-
-                            Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.01),
-                              child: Text("Location:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
-                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.02, bottom: height*0.0),
-                              child: Text(document['location']),),
-
-                            Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.01),
-                              child: Text("Timing:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
-                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.01),
-                              child: Text("Monday - Friday"),),
-                            Padding(padding: EdgeInsets.only(left: width*0.06,top: height*0.01, bottom: height*0.0),
-                              child: Text("${document['start time']} to ${document['end time']}"),),
-
-                            Padding(padding: EdgeInsets.only(left: width*0.01,top: height*0.01),
-                              child: Text("Charges:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
-                            Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.01, bottom: height*0.0),
-                              child: Text("Rs: ${document['price']} "),),
-
                             Padding(padding: EdgeInsets.only(left: width*0.02,top: height*0.01),
                               child: Text("About:",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),),
                             Padding(padding: EdgeInsets.only(left: width*0.02,right:width*0.02, top: height*0.01, bottom: height*0.01),
                               child: Text('${document['description']}',style: TextStyle(),textAlign: TextAlign.justify,
                               ),),
 
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                /*MaterialButton(onPressed: (){},
-                            color: Colors.grey.shade300,
-                            child: Icon(Icons.chat,color: Colors.white,),),
-                          MaterialButton(onPressed: (){},
-                            color: Colors.grey.shade300,
-                            child: Icon(Icons.call,color: Colors.white,),),
-                         *//* MaterialButton(onPressed: (){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                builder: (context)
-                            {
-                              return  HomePage(itemId: itemId,);
-                            }
-                            ));
-                          },
-                            color: Color.fromRGBO(25, 58, 106, 5),
-                            child: Text("Create Appointment",style: TextStyle(color: Colors.white),
-                            ),
-                          ),*/
-                              ],
-                            ),
                           ],
                           ),
                         )
