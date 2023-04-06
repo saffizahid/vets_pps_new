@@ -549,6 +549,14 @@ class AricleScreenState extends State<AricleScreen>
                                                                                       final canceldb4 = FirebaseFirestore.instance;
                                                                                     await canceldb4.collection("company_wallet").doc("Company_wallet").update({"wallet":NewComapnyBalance});
 
+                                                                                    final _ratingbooking = FirebaseFirestore.instance;
+                                                                                      await _ratingbooking.collection("ratings").doc(bookingID).set({
+                                                                                        "ratingstatus": "NotGiven",
+                                                                                        "rating": 5,
+                                                                                        "userid": USERID,
+                                                                                        "vetid": CURRENTVETID,
+                                                                                        "review": ""
+                                                                                      });
                                                                                       print("All statements executed successfully!");
                                                                                       Navigator.of(context).pop();
                                                                                     } catch (e) {
@@ -933,5 +941,7 @@ class AricleScreenState extends State<AricleScreen>
         ),
       ),
     );
+
+
   }
 }
