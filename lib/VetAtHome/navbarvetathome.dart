@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../CLINICVETS/VetProfile.dart';
+import '../Payment/Wallet/UserWalletVAH.dart';
 
 class NavBarVAH extends StatelessWidget {
   final user= FirebaseAuth.instance.currentUser!;
@@ -46,6 +48,26 @@ class NavBarVAH extends StatelessWidget {
               }));
             },
           ),
+          ListTile(
+            leading: Icon(Icons.account_balance_wallet,color: Colors.white,),
+            title: Text('Wallet',style: TextStyle(
+              color: Colors.white,
+            )),
+            onTap: (){
+              FirebaseFirestore.instance.collection("vet_wallet").doc(user.uid).get().then((value) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context)
+                        {
+                          return  VAHWalletScreen(user: user, userMap: value.data()!,);
+                        }
+                    )
+                );
+              });
+
+            },),
+
           ListTile(
             leading: Icon(Icons.settings,color: Colors.white,),
             title: Text('Settings',style: TextStyle(

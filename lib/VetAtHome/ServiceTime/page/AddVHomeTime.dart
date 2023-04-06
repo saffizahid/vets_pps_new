@@ -5,16 +5,16 @@ import 'package:vets_pps_new/VetAtHome/ServiceTime/services/firebase_crud.dart';
 import '../../home_screen_vetathome.dart';
 import 'VHomeTime.dart';
 import 'checkbox.dart';
-class AddPageSec extends StatefulWidget {
-  const AddPageSec({super.key});
+class AddServiceVAH extends StatefulWidget {
+  const AddServiceVAH({super.key});
 
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _AddPageSec();
+    return _AddServiceVAH();
   }
 }
-class _AddPageSec extends State<AddPageSec> {
+class _AddServiceVAH extends State<AddServiceVAH> {
   final vHomeTimePinLocation = TextEditingController();
   final vHomeTimeTimeSlotDuration = TextEditingController();
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -199,7 +199,7 @@ final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
                 )
             );
           },
-          child: const Icon(
+          child:  Icon(
             Icons.arrow_back_sharp,  // add custom icons also
           ),
 

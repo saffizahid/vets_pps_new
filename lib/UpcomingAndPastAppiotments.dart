@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'Authntication/auth_page.dart';
 import 'CLINICVETS/home_screen_clinics.dart';
 import 'Style/styles/colors.dart';
 
@@ -48,12 +49,12 @@ class AricleScreenState extends State<AricleScreen>
           backgroundColor: Color.fromRGBO(26, 59, 106, 1.0),
           elevation: 0,
           leading: GestureDetector(
-            onTap: () {
+         /*   onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return HomePageClinics();
+                return ();
               }));
             },
-            child: Icon(
+         */   child: Icon(
               Icons.arrow_back_sharp, // add custom icons also
             ),
           )),
