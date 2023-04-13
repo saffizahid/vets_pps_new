@@ -498,7 +498,7 @@ class AricleScreenState extends State<AricleScreen>
                                                                             context: context,
                                                                             builder: (ctx) => AlertDialog(
                                                                               title: const Text("Complete Booking"),
-                                                                              content: const Text("Are you sure you want to Complete this booking"),
+                                                                              content: const Text("Are you sure you want to Complete this booking?"),
                                                                               actions: <Widget>[
                                                                                 TextButton(
                                                                                   child: const Text('No'),
