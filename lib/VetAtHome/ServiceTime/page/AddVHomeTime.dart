@@ -1,32 +1,23 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:from_to_time_picker/from_to_time_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:vets_pps_new/CLINICVETS/Clinics/services/firebase_crud.dart';
-import '../../home_screen_clinics.dart';
-import 'ClinicsList.dart';
+import 'package:vets_pps_new/VetAtHome/ServiceTime/services/firebase_crud.dart';
+import '../../home_screen_vetathome.dart';
+import 'VHomeTime.dart';
 import 'checkbox.dart';
-import 'package:geolocator/geolocator.dart';
-class AddPageSec extends StatefulWidget {
+class AddServiceVAH extends StatefulWidget {
+  const AddServiceVAH({super.key});
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _AddPageSec();
+    return _AddServiceVAH();
   }
 }
-class _AddPageSec extends State<AddPageSec> {
-  final _clinicName = TextEditingController();
-  final _clinics_clinicAddress = TextEditingController();
-  final _clinics_startTime = TextEditingController();
-  final _clinics_endTime = TextEditingController();
-  final _clinics_contact = TextEditingController();
-  final clinicClinic = TextEditingController();
-  final clinicTimeSlotDuration = TextEditingController();
-
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+class _AddServiceVAH extends State<AddServiceVAH> {
+  final vHomeTimePinLocation = TextEditingController();
+  final vHomeTimeTimeSlotDuration = TextEditingController();
+final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final user= FirebaseAuth.instance.currentUser!;
   DateTime? _fromTime;
   DateTime? _toTime;
@@ -97,7 +88,7 @@ class _AddPageSec extends State<AddPageSec> {
       );
 
       if (_fromTime != null && toTime.isBefore(_fromTime!)) {
-        final snackBar = SnackBar(
+        final snackBar = const SnackBar(
           content: Text('To time should be greater than From time.'),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -111,72 +102,25 @@ class _AddPageSec extends State<AddPageSec> {
     }
   }
 
-  Future<Position> _getCurrentLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    return position;
-  }
-
+ 
   @override
   Widget build(BuildContext context) {
 
-    final nameField = TextFormField(
-        controller: _clinicName,
-        autofocus: false,
-        validator: (value) {
-          if (value == null || value.trim().isEmpty) {
-            return 'This field is required';
-          }
-        },
-        decoration: InputDecoration(
-            contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            hintText: "Enter Clinic Name",
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
 
 
-    final clinicAddressField = TextFormField(
-        controller: _clinics_clinicAddress,
-        autofocus: false,
-        validator: (value) {
-          if (value == null || value.trim().isEmpty) {
-            return 'This field is required';
-          }
-        },
-        decoration: InputDecoration(
-            contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            hintText: "Enter Clinic Location",
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
-
-
-   final clinicpinlocation = TextFormField(
-     controller: clinicClinic,
-     decoration: InputDecoration(
+   final vHomeTimepinlocation = TextFormField(
+     controller: vHomeTimePinLocation,
+     decoration: const InputDecoration(
        labelText: 'Pin location',
        hintText: 'Tap the button to get your current location',
      ),);
 
 
-    final viewListbutton = TextButton(
-        onPressed: () {
-          Navigator.pushAndRemoveUntil<dynamic>(
-            context,
-            MaterialPageRoute<dynamic>(
-              builder: (BuildContext context) => ClinicLists(),
-            ),
-            (route) => false, //if you want to disable back feature set to false
-          );
-        },
-        child: const Text('View List of Clinics',
-            style: TextStyle(color:Color.fromRGBO(26, 59, 106, 1.0)),
-      textAlign: TextAlign.center,
-    ));
-
+   
     final SaveButon = Material(
       //elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color.fromRGBO(26, 59, 106, 1.0),
+      color: const Color.fromRGBO(26, 59, 106, 1.0),
       child: MaterialButton(
         //color: Color.fromRGBO(26, 59, 106, 1.0),
         minWidth: MediaQuery.of(context).size.width,
@@ -184,7 +128,7 @@ class _AddPageSec extends State<AddPageSec> {
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
             if (_fromTime == null || _toTime == null) {
-              final snackBar = SnackBar(
+              final snackBar = const SnackBar(
                 content: Text('Please select both From and To times.'),
               );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -194,18 +138,16 @@ class _AddPageSec extends State<AddPageSec> {
               print('To Time: ${_timeFormat.format(_toTime!)}');
             }
 
-            var response = await FirebaseCrud.addClinics(
-              name: _clinicName.text,
-              clinicAddress: _clinics_clinicAddress.text,
+            var response = await VAHFirebaseCrud.addVHomeTimes(
               startTime: startTimes,
               endTime: endTimes,
               vetid: user.uid,
-              pinlocation: clinicClinic.text,
+              pinlocation: vHomeTimePinLocation.text,
               selecteddays: _selectedDays,
               unselecteddays: _unselectedDays,
               timeslotduration: dropdownValue,
 
-              //    contactno: _clinics_contact.text
+              //    contactno: _vHomeTimes_contact.text
             );
             if (response.code != 200) {
               showDialog(
@@ -225,10 +167,10 @@ class _AddPageSec extends State<AddPageSec> {
                   });
             }
 
-          };
+          }
 
         },
-        child: Text(
+        child: const Text(
           "Save",
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.center,
@@ -239,11 +181,11 @@ class _AddPageSec extends State<AddPageSec> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("Add Page",style: TextStyle(color: Color.fromRGBO(
+        title: const Text("Add Page",style: TextStyle(color: Color.fromRGBO(
             214, 217, 220, 1.0), fontSize: 15),),
 
         centerTitle: true,
-        backgroundColor: Color.fromRGBO(26, 59, 106, 1.0),
+        backgroundColor: const Color.fromRGBO(26, 59, 106, 1.0),
         elevation: 0,
         leading: GestureDetector(
           onTap: (){
@@ -252,12 +194,12 @@ class _AddPageSec extends State<AddPageSec> {
                 MaterialPageRoute(
                     builder: (context)
                     {
-                      return  HomePageClinics();
+                      return  const HomePageVetAtHome();
                     }
                 )
             );
           },
-          child: Icon(
+          child:  Icon(
             Icons.arrow_back_sharp,  // add custom icons also
           ),
 
@@ -277,16 +219,14 @@ class _AddPageSec extends State<AddPageSec> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    nameField,
                     const SizedBox(height: 35.0),
-                    clinicAddressField,
                     const SizedBox(height: 35.0),
-                      SizedBox(height: 8.0),
+                      const SizedBox(height: 8.0),
 
                     Column(
                       children: [
                         // Step 2.
-                        Text(
+                        const Text(
                           "Time Duration",
                           style: TextStyle(fontSize: 15),
                         ),
@@ -300,7 +240,7 @@ class _AddPageSec extends State<AddPageSec> {
                               value: value,
                               child: Text(
                                 value + " mins",
-                                style: TextStyle(fontSize: 15),
+                                style: const TextStyle(fontSize: 15),
                               ),
                             );
                           }).toList(),
@@ -320,7 +260,7 @@ class _AddPageSec extends State<AddPageSec> {
                       children: <Widget>[
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromRGBO(26, 59, 106, 1.0),
+                              backgroundColor: const Color.fromRGBO(26, 59, 106, 1.0),
                               ),
 
                           onPressed: () => _selectFromTime(context),
@@ -328,14 +268,14 @@ class _AddPageSec extends State<AddPageSec> {
                             _fromTime == null
                                 ? 'Select From Time'
                                 : 'From Time: ${_timeFormat.format(_fromTime!)}',
-                        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold,color: Colors.white)
+                        style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold,color: Colors.white)
                             ,
                           ),
                         ),
-                        SizedBox(width: 8.0),
+                        const SizedBox(width: 8.0),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromRGBO(26, 59, 106, 1.0),
+                              backgroundColor: const Color.fromRGBO(26, 59, 106, 1.0),
                              ),
 
 
@@ -344,24 +284,24 @@ class _AddPageSec extends State<AddPageSec> {
                             _toTime == null
                                 ? 'Select To Time'
                                 : 'To Time: ${_timeFormat.format(_toTime!)}',
-                              style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold,color: Colors.white)
+                              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold,color: Colors.white)
 ,
                           ),
                         ),
-                        SizedBox(height: 16.0),
+                        const SizedBox(height: 16.0),
                       ],
                     ),
 
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Text("Selected Days: ${_selectedDays.join(", ")}"),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     ElevatedButton(
-                      child: Text("Select Days"),
                       onPressed: _showDaysPopup,
+                      child: const Text("Select Days"),
                       ),
 
                     const SizedBox(height: 35.0),
-
+                    vHomeTimepinlocation,
                     const SizedBox(height: 2.0),
                     SaveButon,
                     

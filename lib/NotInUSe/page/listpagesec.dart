@@ -1,29 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:vets_pps_new/CLINICVETS/Clinics/services/firebase_crud.dart';
-import '../../../AddServicesCrud/service_list.dart';
-import '../models/clinics.dart';
+import '../models/services.dart';
+import '../services/firebase_crud.dart';
 import 'addpagesec.dart';
 import 'editpagesec.dart';
 
-class ClinicLists extends StatefulWidget {
+class ListPageSec extends StatefulWidget {
+  String clinicid;
+  ListPageSec({required this.clinicid});
+
   @override
   State<StatefulWidget> createState() {
-    return _ClinicLists();
+    return _ListPageSec();
   }
 }
 
-class _ClinicLists extends State<ClinicLists> {
-  List<Clinics> clinicssincart = [];
+class _ListPageSec extends State<ListPageSec> {
+  List<Services> servicessincart = [];
 
-  final Stream<QuerySnapshot> collectionReference = FirebaseCrud.readClinics();
-  //FirebaseFirestore.instance.collection('Clinics').snapshots();
+  final Stream<QuerySnapshot> collectionReference = FirebaseCrud.readServices();
+  //FirebaseFirestore.instance.collection('Services').snapshots();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: Text("List Of Clinics",style: TextStyle(color: Color.fromRGBO(
+        title: Text("List Of Services",style: TextStyle(color: Color.fromRGBO(
             214, 217, 220, 1.0), fontSize: 15),),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(26, 59, 106, 1.0),
@@ -55,25 +57,23 @@ class _ClinicLists extends State<ClinicLists> {
               padding: const EdgeInsets.only(top: 8.0),
               child: ListView(
                 children: snapshot.data!.docs.map((e) {
-                  String clinicid = e.id;
-
                   return Card(
                       child: Column(children: [
                     ListTile(
-                      title: Text(e["clinicName"]),
+                      title: Text(e["servicetitle"]),
                       subtitle: Container(
                         child: (Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                            /* Text("Contact Number: " + e['contact_no'],
                                 style: const TextStyle(fontSize: 12)),
-                           */ Text("endTime: " + e['endTime'],
+                           */ Text("price: " + e['price'],
                                 style: const TextStyle(fontSize: 12)),
-                            Text("clinicAddress: " + e['clinicAddress'],
+                            Text("servicetype: " + e['servicetype'],
                                 style: const TextStyle(fontSize: 14)),
-                            Text("startTime: " + e['startTime'],
+                            Text("servicedescription: " + e['servicedescription'],
                                 style: const TextStyle(fontSize: 14)),
-                            Text("Clinic Clinic: " + e['pinlocation'],
+                            Text("Service Clinic: " + e['ClinicName'],
                                 style: const TextStyle(fontSize: 14)),
 
                           ],
@@ -95,14 +95,14 @@ class _ClinicLists extends State<ClinicLists> {
                               context,
                               MaterialPageRoute<dynamic>(
                                 builder: (BuildContext context) => EditPageSec(
-                                  clinics: Clinics(
+                                  services: Services(
                                       uid: e.id,
-                                      clinicName: e["clinicName"],
-                                      clinicAddress: e["clinicAddress"],
+                                      servicetitle: e["servicetitle"],
+                                      servicetype: e["servicetype"],
                                       //contactno: e["contact_no"],
-                                      endTime: e["endTime"],
-                                      startTime: e["startTime"],
-                                      pinlocation: e["pinlocation"],
+                                      price: e["price"],
+                                      servicedescription: e["servicedescription"],
+                                      ClinicName: e["ClinicName"],
 
                                   ),
                                 ),
@@ -121,7 +121,7 @@ class _ClinicLists extends State<ClinicLists> {
                           child: const Text('Delete'),
                           onPressed: () async {
                             var response =
-                                await FirebaseCrud.deleteClinics(docId: e.id);
+                                await FirebaseCrud.deleteServices(docId: e.id);
                             if (response.code != 200) {
                               showDialog(
                                   context: context,
@@ -140,13 +140,26 @@ class _ClinicLists extends State<ClinicLists> {
                               primary: const Color.fromARGB(255, 143, 133, 226),
                               textStyle: const TextStyle(fontSize: 20),
                             ),
-                            child: const Text('View Services'),
+                            child: const Text('Add To Cart'),
+                            onPressed: () async {
+                              final _db = FirebaseFirestore.instance;
 
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return ServiceList(clinicId: clinicid,);
-                            }));
-                          },
+                              await _db.collection("cart").add({
+                                "servicetitle": e["servicetitle"],
+                                "servicetype": e["servicetype"],
+                                "price": e["price"],
+                                "servicedescription": e["servicedescription"]
+                                 });
+
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      content:
+                                      Text("Added To Cart"),
+                                    );
+                                  });
+                            }
 
                         ),
                       ],

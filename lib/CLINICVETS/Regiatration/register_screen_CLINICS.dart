@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import '../CLINICVETS/home_screen_clinics.dart';
+import '../home_screen_clinics.dart';
 
-class RegisterationScreenVetAtHome extends StatefulWidget {
-  const RegisterationScreenVetAtHome({Key? key}) : super(key: key);
+class RegisterationScreen extends StatefulWidget {
+  const RegisterationScreen({Key? key}) : super(key: key);
 
   @override
-  State<RegisterationScreenVetAtHome> createState() => _RegisterationScreenVetAtHomeState();
+  State<RegisterationScreen> createState() => _RegisterationScreenState();
 }
 
-class _RegisterationScreenVetAtHomeState extends State<RegisterationScreenVetAtHome> {
+class _RegisterationScreenState extends State<RegisterationScreen> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
@@ -47,7 +47,7 @@ class _RegisterationScreenVetAtHomeState extends State<RegisterationScreenVetAtH
         'profileImg': imageLink,
         'ProfileStatus': "UnApproved",
         "ProfileUnapprovalReason":"New User",
-        'ProfileType' : "VETATHOME"
+        'ProfileType' : "Clinic"
 
       },
     );
@@ -61,7 +61,7 @@ class _RegisterationScreenVetAtHomeState extends State<RegisterationScreenVetAtH
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            "VET AT HOME PROFILE",
+            "VETS",
             style: TextStyle(
                 color: Color.fromRGBO(214, 217, 220, 1.0), fontSize: 15),
           ),
@@ -71,7 +71,7 @@ class _RegisterationScreenVetAtHomeState extends State<RegisterationScreenVetAtH
           leading: GestureDetector(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return RegisterationScreenVetAtHome();
+                return HomePageClinics();
               }));
             },
             child: Icon(

@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vets_pps_new/CLINICVETS/navbarCLinics.dart';
-import '../Doctor List/add_item.dart';
-import '../Vets Profile/Appiotment Status.dart';import '../CLINICVETS/register_screen_CLINICS.dart';
+import '../UpcomingAndPastAppiotments.dart';import '../CLINICVETS/Regiatration/register_screen_CLINICS.dart';
 import '../main.dart';
+import 'ServiceTime/page/VHomeTime.dart';
 import 'navbarvetathome.dart';
 
 
@@ -34,7 +34,7 @@ class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
       ),body:
     StreamBuilder(
         stream: FirebaseFirestore.instance
-            .collection("VETATHOME")
+            .collection("vets")
             .doc(user.uid)
             .snapshots(),
         builder: (context, sasapshot) {
@@ -114,35 +114,6 @@ class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
                           SizedBox(
                             width: 20,
                           ),
-
-/*
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context)
-                      {
-                        return  ListPageSec();
-                      }
-                  )
-              );
-
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(top:50),
-              child: Container(
-                height:80,
-                decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
-                    borderRadius: BorderRadius.circular(5)
-
-                ),
-
-                child: Center(child: Text('Click Here to See Your Services',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
-
-              ),
-            ),
-          ),*/
                           SizedBox(
                             width: 20,
                           ),
@@ -156,7 +127,7 @@ class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
                                   MaterialPageRoute(
                                       builder: (context)
                                       {
-                                        return  RegisterationScreen();
+                                        return  VHomeTimeLists();
                                       }
                                   )
                               );

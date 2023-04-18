@@ -36,8 +36,19 @@ class _SignupState extends State<Signup> {
       "Profile": _profileType
 
     },
+
     );
+
+    FirebaseFirestore.instance.collection("vet_wallet").doc(currentUser?.uid).set({
+      "wallet": 0,
+
+    },
+
+    );
+
+
   }
+
 // CONFIRMED PASSWORD CODE
   bool passwordConfirmed(){
     if(_passwordController.text.trim() == _confirmpasswordController.text.trim())
@@ -153,7 +164,7 @@ class _SignupState extends State<Signup> {
                     Expanded(
                       child: RadioListTile<String>(
                         title: Text('VET AT HOME',style: TextStyle(color:Color.fromRGBO(26, 59, 106, 1.0) , fontSize: 15,fontWeight: FontWeight.bold),),
-                        value: 'vetathome',
+                        value: 'VETATHOME',
                         groupValue: _profileType,
                         onChanged: (value) {
                           setState(() {
@@ -165,7 +176,7 @@ class _SignupState extends State<Signup> {
                     Expanded(
                       child: RadioListTile<String>(
                         title: Text('CLINIC',style: TextStyle(color:Color.fromRGBO(26, 59, 106, 1.0) , fontSize: 15,fontWeight: FontWeight.bold),),
-                        value: 'clinic',
+                        value: 'Clinic',
                         groupValue: _profileType,
                         onChanged: (value) {
                           setState(() {
