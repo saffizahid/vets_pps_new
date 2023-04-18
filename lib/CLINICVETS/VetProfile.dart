@@ -5,6 +5,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
+import 'Regiatration/Edit_Clinic_Vet.dart';
+
 
 
 class UserdetailsPage extends StatefulWidget {
@@ -26,7 +28,15 @@ class _UserdetailsPageState extends State<UserdetailsPage> {
         backgroundColor: Color.fromRGBO(25, 58, 106, 100),
         appBar: AppBar(backgroundColor: Color.fromRGBO(25, 58, 106, 100),
             elevation: 10,
-            actions:[Icon(Icons.edit),] ),
+            actions:[GestureDetector(
+              child: Icon(Icons.edit),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EditRegisterationScreen()),
+                );
+              },
+            )] ),
         body:StreamBuilder(
             stream: FirebaseFirestore.instance.collection('vets').doc(user.uid).snapshots(),
             builder: (context, snapshot) {

@@ -373,7 +373,7 @@ class AricleScreenState extends State<AricleScreen>
                                                                                 onPressed: () async {
                                                                                   try {
                                                                                     final _db = FirebaseFirestore.instance;
-                                                                                    await _db.collection("booking").doc(bookingID).update({"userName": "Canceled"});
+                                                                                    await _db.collection("booking").doc(bookingID).update({"userName": "Cancelled by Vet"});
 
                                                                                     final canceldb0 = FirebaseFirestore.instance;
                                                                                     DocumentSnapshot doc = await canceldb0.collection("vet_temp_wallet").doc(bookingID).get();
@@ -409,10 +409,10 @@ class AricleScreenState extends State<AricleScreen>
 */
 
                                                                                     final canceldb = FirebaseFirestore.instance;
-                                                                                    await canceldb.collection("vet_temp_wallet").doc(bookingID).update({"status": "Canceled","wallet":0});
+                                                                                    await canceldb.collection("vet_temp_wallet").doc(bookingID).update({"status": "Cancelled by vet","wallet":0});
 
                                                                                     final canceldb2 = FirebaseFirestore.instance;
-                                                                                    await canceldb2.collection("comapny_temp_wallet").doc(bookingID).update({"status": "Canceled","wallet":0});
+                                                                                    await canceldb2.collection("comapny_temp_wallet").doc(bookingID).update({"status": "Cancelled by vet","wallet":0});
 
                                                                                     final canceldb3 = FirebaseFirestore.instance;
                                                                                     await canceldb3.collection("user").doc(USERID).update({"wallet":NewBalance});
@@ -677,7 +677,7 @@ class AricleScreenState extends State<AricleScreen>
                                                 return Column(
                                                   children: [
 
-                                                    if (status == "Completed"||status == "Canceled") ...[
+                                                    if (status == "Completed"||status == "Cancelled by Vet"||status == "Cancelled by User") ...[
                                                       Card(
                                                         shape: RoundedRectangleBorder(
                                                           borderRadius:
