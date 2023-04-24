@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -21,6 +22,155 @@ class VAHWalletScreen extends StatefulWidget {
 }
 
 class _VAHWalletScreenState extends State<VAHWalletScreen> {
+  final userss = FirebaseAuth.instance.currentUser!;
+
+  void _showWithdrawalPopup(BuildContext context) {
+    String bankName = "";
+    String accountTitle = "";
+    String ibanNumber = "";
+    double amount = 0;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            "Withdraw Funds",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "Bank Name",
+                  hintStyle: TextStyle(color: Colors.grey),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
+                onChanged: (value) => bankName = value,
+              ),
+              SizedBox(height: 10),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "Account Title",
+                  hintStyle: TextStyle(color: Colors.grey),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
+                onChanged: (value) => accountTitle = value,
+              ),
+              SizedBox(height: 10),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "IBAN Number",
+                  hintStyle: TextStyle(color: Colors.grey),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
+                onChanged: (value) => ibanNumber = value,
+              ),
+              SizedBox(height: 10),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "Amount",
+                  hintStyle: TextStyle(color: Colors.grey),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
+                keyboardType: TextInputType.number,
+                onChanged: (value) => amount = double.parse(value),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: Text(
+                "Cancel",
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(
+                "Withdraw",
+                style: TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: () async {
+                // Perform validations
+                if (bankName.isEmpty ||
+                    accountTitle.isEmpty ||
+                    ibanNumber.isEmpty ||
+                    amount == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Please fill all fields."),
+                  ));
+                  return;
+                }
+
+                double walletBalance =
+                double.parse(widget.userMap["wallet"].toString());
+
+                if (amount > walletBalance) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                        "Withdrawal amount cannot be greater than your wallet balance."),
+                  ));
+                  return;
+                }
+
+                // Save withdrawal request to Firestore
+                await FirebaseFirestore.instance
+                    .collection("vet_funds_withdrawal_request")
+                    .add({
+                  "bankName": bankName,
+                  "accountTitle": accountTitle,
+                  "ibanNumber": ibanNumber,
+                  "amount": amount,
+                  "vetid": userss.uid,
+                  "Date": DateTime.now(),
+                  "Status": "WithdrawRequested",
+                  "VetName": widget.userMap["name"].toString(),
+                  "VetEmail": widget.userMap["email"].toString(),
+
+                });
+                double newWalletBalance = walletBalance - amount;
+                FirebaseFirestore.instance
+                    .collection("vet_wallet")
+                    .doc(userss.uid)
+                    .update({
+                  "wallet": newWalletBalance,
+                });
+
+                // Show success message and close popup
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("Withdrawal Request Submitted Successfully."),
+                ));
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -67,7 +217,34 @@ class _VAHWalletScreenState extends State<VAHWalletScreen> {
 
                               child: Icon(Icons.arrow_back)),
 
-                            Icon(Icons.more_vert)],
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.0),
+                                color: Colors.white,
+                              ),
+                              child: PopupMenuButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                itemBuilder: (BuildContext context) =>
+                                <PopupMenuEntry>[
+                                  PopupMenuItem(
+                                    value: 'withdraw_funds',
+                                    child: Text('Withdraw Funds'),
+                                  ),
+                                ],
+                                onSelected: (value) {
+                                  switch (value) {
+                                    case 'withdraw_funds':
+                                      _showWithdrawalPopup(context);
+
+                                      break;
+                                  }
+                                },
+                                icon: Icon(Icons.more_vert),
+                              ),
+                            )
+                          ],
                         ),
                         SizedBox(
                           height: 15,
