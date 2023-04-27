@@ -1,8 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:vets_pps_new/CLINICVETS/navbarCLinics.dart';
+import '../NotInUSe/Testing.dart';
 import '../UpcomingAndPastAppiotments.dart';import 'Clinics/page/ClinicsList.dart';
+import 'Clinics/page/clinicstesting.dart';
+import 'Clinics/page/clinicstesting2.dart';
+import 'Clinics/page/clinictetingform3.dart';
 import 'Regiatration/register_screen_CLINICS.dart';
 import '../main.dart';
 
@@ -16,6 +21,18 @@ class HomePageClinics extends StatefulWidget {
 
 class _HomePageClinicsState extends State<HomePageClinics> {
   final user= FirebaseAuth.instance.currentUser!;
+  @override
+  void initState() {
+    super.initState();
+    requestLocationPermission();
+  }
+
+  Future<void> requestLocationPermission() async {
+    final PermissionStatus status = await Permission.location.request();
+    if (status != PermissionStatus.granted) {
+      // Permission not granted
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,34 +131,7 @@ class _HomePageClinicsState extends State<HomePageClinics> {
                             width: 20,
                           ),
 
-/*
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context)
-                      {
-                        return  ListPageSec();
-                      }
-                  )
-              );
 
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(top:50),
-              child: Container(
-                height:80,
-                decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
-                    borderRadius: BorderRadius.circular(5)
-
-                ),
-
-                child: Center(child: Text('Click Here to See Your Services',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
-
-              ),
-            ),
-          ),*/
                           SizedBox(
                             width: 20,
                           ),
@@ -174,14 +164,14 @@ class _HomePageClinicsState extends State<HomePageClinics> {
                               ),
                             ),
                           ),
-                          /*InkWell(
+                          InkWell(
                             onTap: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context)
                                       {
-                                        return  RegisterationScreen();
+                                        return  VetClinicShopForm();
                                       }
                                   )
                               );
@@ -196,12 +186,11 @@ class _HomePageClinicsState extends State<HomePageClinics> {
 
                                 ),
 
-                                child: Center(child: Text('Vets At Home ',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+                                child: Center(child: Text('testing ',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
 
                               ),
                             ),
                           ),
-*/
 
 
 
