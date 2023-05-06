@@ -31,6 +31,7 @@ class _RegisterationScreenVetAtHomeState extends State<RegisterationScreenVetAtH
 
   Future ProfileCreationF() async {
     final User? currentUser = FirebaseAuth.instance.currentUser!;
+    double avgRating = double.parse("5");
 
     FirebaseFirestore.instance.collection("vets").doc(currentUser?.uid).set(
       {
@@ -47,7 +48,9 @@ class _RegisterationScreenVetAtHomeState extends State<RegisterationScreenVetAtH
         'profileImg': imageLink,
         'ProfileStatus': "UnApproved",
         "ProfileUnapprovalReason":"New User",
-        'ProfileType' : "VETATHOME"
+        'ProfileType' : "VETATHOME",
+        'AVGRATING' : avgRating,
+
 
       },
     );

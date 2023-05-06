@@ -38,7 +38,7 @@ class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
             .doc(user.uid)
             .snapshots(),
         builder: (context, sasapshot) {
-          if (sasapshot.data!.exists) {
+          if (sasapshot.hasData && sasapshot.data!.exists) {
             var document = sasapshot.data;
             var status=document!["ProfileStatus"];
             return Container(

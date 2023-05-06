@@ -46,17 +46,21 @@ class _DaysCheckboxWidgetState extends State<DaysCheckboxWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
            children: List<Widget>.generate(_daysList.length, (int index) {
-            return CheckboxListTile(
-              title: Text(_daysList[index]),
-              value: _isCheckedList[index],
-              onChanged: (bool? value) {
-                setState(() {
-                  _isCheckedList[index] = value!;
-                });
-              },
-            );
-          }),
-        ),
+          if (index == 0) {
+            // Skip the empty string at index 0
+            return SizedBox.shrink();
+          }
+          return CheckboxListTile(
+            title: Text(_daysList[index]),
+            value: _isCheckedList[index],
+            onChanged: (bool? value) {
+              setState(() {
+                _isCheckedList[index] = value!;
+              });
+            },
+          );
+        }),
+      ),
       ),
       actions: <Widget>[
         TextButton(

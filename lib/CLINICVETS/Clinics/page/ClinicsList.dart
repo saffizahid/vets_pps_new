@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:vets_pps_new/CLINICVETS/Clinics/services/firebase_crud.dart';
+import 'package:vets_pps_new/CLINICVETS/home_screen_clinics.dart';
 import '../../../AddServicesCrud/service_list.dart';
 import '../models/clinics.dart';
 import 'addpagesec.dart';
@@ -15,9 +16,9 @@ class ClinicLists extends StatefulWidget {
 
 class _ClinicLists extends State<ClinicLists> {
   List<Clinics> clinicssincart = [];
+  List<String> _selectedDays = [];
 
   final Stream<QuerySnapshot> collectionReference = FirebaseCrud.readClinics();
-  //FirebaseFirestore.instance.collection('Clinics').snapshots();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +29,16 @@ class _ClinicLists extends State<ClinicLists> {
         centerTitle: true,
         backgroundColor: Color.fromRGBO(26, 59, 106, 1.0),
         elevation: 0,
+        leading:   GestureDetector(
+          child: Icon(Icons.arrow_back_rounded),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomePageClinics()),
+            );
+          },
+        ),
+
         actions: <Widget>[
           IconButton(
             icon: Icon(
@@ -35,13 +46,9 @@ class _ClinicLists extends State<ClinicLists> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.pushAndRemoveUntil<dynamic>(
+              Navigator.push(
                 context,
-                MaterialPageRoute<dynamic>(
-                  builder: (BuildContext context) => AddPageSec(),
-                ),
-                (route) =>
-                    false, //if you want to disable back feature set to false
+                MaterialPageRoute(builder: (context) => AddPageClinics()),
               );
             },
           )
@@ -51,29 +58,40 @@ class _ClinicLists extends State<ClinicLists> {
         stream: collectionReference,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
+
             return Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: ListView(
                 children: snapshot.data!.docs.map((e) {
                   String clinicid = e.id;
+                  _selectedDays = List<String>.from(e['selectedDays']);
+                  bool clinicAvailable = e['CLINICAVALIBLE'] ?? false; // assuming default value is false
 
                   return Card(
                       child: Column(children: [
                     ListTile(
-                      title: Text(e["clinicName"]),
-                      subtitle: Container(
+                      title: Text(e["clinicName"],style: const TextStyle(fontSize: 17)),
+                    trailing: Switch(
+                      value: clinicAvailable,
+                      onChanged: (value) {
+                        // update CLINICAVALIBLE in Firestore
+                        FirebaseFirestore.instance
+                            .collection('Clinics')
+                            .doc(clinicid)
+                            .update({'CLINICAVALIBLE': value});
+                      },
+                    ),
+                  subtitle: Container(
                         child: (Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                           /* Text("Contact Number: " + e['contact_no'],
-                                style: const TextStyle(fontSize: 12)),
-                           */ Text("endTime: " + e['endTime'],
-                                style: const TextStyle(fontSize: 12)),
-                            Text("clinicAddress: " + e['clinicAddress'],
+                            Text("Clinic Address: " + e['clinicAddress'],
                                 style: const TextStyle(fontSize: 14)),
-                            Text("startTime: " + e['startTime'],
+                            Text("Start Time: " + e['startTime'],
                                 style: const TextStyle(fontSize: 14)),
-                            Text("Clinic Clinic: " + e['pinlocation'],
+                            Text("End Time: " + e['endTime'],
+                                style: const TextStyle(fontSize: 14)),
+                            Text("Days: " + _selectedDays.skip(1).join(", "),
                                 style: const TextStyle(fontSize: 14)),
 
                           ],
@@ -99,12 +117,14 @@ class _ClinicLists extends State<ClinicLists> {
                                       uid: e.id,
                                       clinicName: e["clinicName"],
                                       clinicAddress: e["clinicAddress"],
-                                      //contactno: e["contact_no"],
                                       endTime: e["endTime"],
                                       startTime: e["startTime"],
                                       pinlocation: e["pinlocation"],
+                                      CLINICAVALIBLE: e["CLINICAVALIBLE"],
+
 
                                   ),
+                                  clinicid: e.id,
                                 ),
                               ),
                               (route) =>

@@ -1,25 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Clinics {
   String? uid;
   String? clinicName;
   String? clinicAddress;
-  String? startTime;
-  String? endTime;
+  String startTime;
+  String endTime;
   String? vetids;
-  String? pinlocation;
+  GeoPoint pinlocation;
   List<String>? selectedDays;
   List<int>? unselectedDays;
   String? timeSlotDuration;
+  bool CLINICAVALIBLE;
 
   Clinics({
     this.uid,
     this.clinicName,
     this.clinicAddress,
-    this.startTime,
-    this.endTime,
+    required this.startTime,
+    required this.endTime,
     this.vetids,
-    this.pinlocation,
+    required this.pinlocation,
     this.selectedDays,
     this.unselectedDays,
     this.timeSlotDuration,
+    required this.CLINICAVALIBLE
   });
 }

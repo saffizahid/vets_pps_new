@@ -14,8 +14,6 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double w=MediaQuery.of(context).size.width;
-    double h=MediaQuery.of(context).size.height;
 
     return AnimatedSplashScreen(splash:Column(
       children: [
