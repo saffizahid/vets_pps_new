@@ -72,6 +72,8 @@ dependencies:
   cupertino_date_textbox: ^1.0.1
   flutter_time_picker_spinner: ^2.0.0
   permission_handler: ^10.2.0
+  time_range: ^1.1.0
+  location: ^4.4.0
 
 
 
