@@ -1,3 +1,4 @@
+/*
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'home_screen_clinics.dart';
-import '../Vets Profile/ImagePicker.dart';
 
 class RegisterationScreen extends StatefulWidget {
   const RegisterationScreen({Key? key}) : super(key: key);
@@ -29,6 +29,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
   int _currentValue = 3;
 
   String imageLink='';
+  String licenseImageLink='';
 
   Future ProfileCreationF() async {
     final User? currentUser = FirebaseAuth.instance.currentUser!;
@@ -44,6 +45,8 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
         'email': currentUser?.email,
         'cnic': cnicController.text,
         'VetLiceance': LiceanceController.text,
+        'VetLiceanceImage': licenseImageLink,
+
         'description': yourselfController.text,
         'profileImg': imageLink,
         'ProfileStatus': "UnApproved"
@@ -84,7 +87,6 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
               padding: EdgeInsets.only(
                   top: height * 0.02, left: width * 0.05, right: width * 0.05),
               children: [
-                ///////////////////////////////////////////////////////////Profile image and adding image from gallery/////////////////////////////////////////////////////////////////////////////////////////////////
                 Container(
                   child: Form(
                       //key: _formKey,
@@ -102,7 +104,6 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                             Reference firebaseStorageRef =
                             FirebaseStorage.instance.ref().child('uploads/$fileName');
                             TaskSnapshot uploadTask = await firebaseStorageRef.putFile(file);
-                            // TaskSnapshot taskSnapshot =  uploadTask.snapshot;
                             uploadTask.ref.getDownloadURL().then(
                                     (value){
                                   setState(() {
@@ -189,7 +190,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                       ),
                       const Center(
                           child: Text(
-                        "Vet Information",
+                        "Vet Information.......",
                         style: TextStyle(
                           color: Color.fromRGBO(26, 59, 106, 1.0),
                           fontWeight: FontWeight.bold,
@@ -197,8 +198,45 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                         ),
                       )),
                       SizedBox(
-                        height: height * 0.02,
+                        height: height * 0.09,
                       ),
+                      //Liceanse Image Picker
+                      InkWell(
+                        onTap: () async {
+                          final ImagePicker _picker = ImagePicker();
+                          final XFile? image =
+                          await _picker.pickImage(source: ImageSource.gallery);
+                          if (image != null) {
+                            File file = File(image.path);
+                            print("file path is ${file.path}");
+                            String fileName = file.path.split("/").last;
+                            Reference firebaseStorageRef = FirebaseStorage.instance
+                                .ref()
+                                .child('license-uploads/$fileName');
+                            TaskSnapshot uploadTask = await firebaseStorageRef.putFile(file);
+                            uploadTask.ref.getDownloadURL().then((value) {
+                              setState(() {
+                                licenseImageLink = value;
+                              });
+                            });
+                          }
+                        },
+                        child: Container(
+                          height: height * 0.2,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              fit: BoxFit.contain,
+                              image: NetworkImage(
+                                licenseImageLink != ""
+                                    ? licenseImageLink
+                                    : "https://www.iconpacks.net/icons/2/free-user-camera-icon-3355-thumb.png",
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
                       TextFormField(
                         controller: LiceanceController,
                         keyboardType: TextInputType.number,
@@ -332,3 +370,4 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
     );
   }
 }
+*/

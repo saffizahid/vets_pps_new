@@ -42,54 +42,56 @@ class _VAHWalletScreenState extends State<VAHWalletScreen> {
               color: Colors.black,
             ),
           ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Bank Name",
-                  hintStyle: TextStyle(color: Colors.grey),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: "Bank Name",
+                    hintStyle: TextStyle(color: Colors.grey),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
                   ),
+                  onChanged: (value) => bankName = value,
                 ),
-                onChanged: (value) => bankName = value,
-              ),
-              SizedBox(height: 10),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Account Title",
-                  hintStyle: TextStyle(color: Colors.grey),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
+                SizedBox(height: 10),
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: "Account Title",
+                    hintStyle: TextStyle(color: Colors.grey),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
                   ),
+                  onChanged: (value) => accountTitle = value,
                 ),
-                onChanged: (value) => accountTitle = value,
-              ),
-              SizedBox(height: 10),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "IBAN Number",
-                  hintStyle: TextStyle(color: Colors.grey),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
+                SizedBox(height: 10),
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: "IBAN Number",
+                    hintStyle: TextStyle(color: Colors.grey),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
                   ),
+                  onChanged: (value) => ibanNumber = value,
                 ),
-                onChanged: (value) => ibanNumber = value,
-              ),
-              SizedBox(height: 10),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Amount",
-                  hintStyle: TextStyle(color: Colors.grey),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
+                SizedBox(height: 10),
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: "Amount",
+                    hintStyle: TextStyle(color: Colors.grey),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
                   ),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) => amount = double.parse(value),
                 ),
-                keyboardType: TextInputType.number,
-                onChanged: (value) => amount = double.parse(value),
-              ),
-            ],
+              ],
+            ),
           ),
           actions: [
             TextButton(
@@ -117,24 +119,22 @@ class _VAHWalletScreenState extends State<VAHWalletScreen> {
                 if (bankName.isEmpty ||
                     accountTitle.isEmpty ||
                     ibanNumber.isEmpty ||
-                    amount == null) {
+                    amount == null ||
+                    amount < 1000) { // Minimum withdrawal limit of 1000
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text("Please fill all fields."),
+                    content: Text("Please enter a valid withdrawal amount."),
+                  ));
+                  return;
+                }
+                if (amount < 0) { // Disallow negative withdrawal amount
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Withdrawal amount cannot be negative."),
                   ));
                   return;
                 }
 
                 double walletBalance =
                 double.parse(widget.userMap["wallet"].toString());
-
-                if (amount > walletBalance) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(
-                        "Withdrawal amount cannot be greater than your wallet balance."),
-                  ));
-                  return;
-                }
-
                 // Save withdrawal request to Firestore
                 await FirebaseFirestore.instance
                     .collection("vet_funds_withdrawal_request")
@@ -174,6 +174,8 @@ class _VAHWalletScreenState extends State<VAHWalletScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    String walletValue = double.parse(widget.userMap["wallet"].toString()).toStringAsFixed(2);
+
     return Scaffold(
       backgroundColor: primary,
 
@@ -307,10 +309,16 @@ class _VAHWalletScreenState extends State<VAHWalletScreen> {
                                 ),
                                 SizedBox(
                                   height: 5,
+
+
+
+
+
+
                                 ),
 
                                 Text(
-                                  "Rs. "+widget.userMap["wallet"].toString(),
+                                  "Rs. "+walletValue,
                                   style: TextStyle(
                                       fontSize: 30,
                                       fontWeight: FontWeight.w600,

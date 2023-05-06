@@ -47,216 +47,222 @@ class _HomePageClinicsState extends State<HomePageClinics> {
         elevation: 0,
 
       ),body:
-    StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection("vets")
-            .doc(user.uid)
-            .snapshots(),
-        builder: (context, sasapshot) {
-          if (sasapshot.hasData && sasapshot.data!.exists) {
-            var document = sasapshot.data;
-            var status=document!["ProfileStatus"];
-            return Container(
-              width: w,
-              height: h,
-              child: Column(
-                children: [
-                  if (status == "Approved") ...[
-                    Container(
+    Container(
+      width: w,
+      height: h,
+      child: SingleChildScrollView(
+        child: StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection("vets")
+                .doc(user.uid)
+                .snapshots(),
+            builder: (context, sasapshot) {
+              if (sasapshot.hasData && sasapshot.data!.exists) {
+                var document = sasapshot.data;
+                var status=document!["ProfileStatus"];
+                return Container(
+                  width: w,
+                  height: h,
+                  child: Column(
+                    children: [
+                      if (status == "Approved") ...[
+                        Container(
 
-                      decoration: BoxDecoration(color: Colors.white),
+                          decoration: BoxDecoration(color: Colors.white),
 
-                      child:
+                          child:
 
-                      Column(
-                        children: [
+                          Column(
+                            children: [
 
-                          InkWell(
+                              InkWell(
 
-                            child: Container(
-                              margin: const EdgeInsets.only(top: 80, left: 0),
-                            ),
-                          ),
-                          InkWell(
-
-                            child: Container(
-                              margin: const EdgeInsets.only(top: 10, left: 0),
-                            ),
-                          ),
-
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context)
-                                      {
-                                        return  AricleScreen();
-                                      }
-                                  )
-                              );
-
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(top:50),
-                              child: Container(
-                                height:80,
-                                decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
-                                    borderRadius: BorderRadius.circular(5)
-
+                                child: Container(
+                                  margin: const EdgeInsets.only(top: 80, left: 0),
                                 ),
-
-                                child: Center(child: Text('Click Here to See Your Appointments',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
-
                               ),
-                            ),
-                          ),
+                              InkWell(
 
-
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context)
-                                      {
-                                        return  ClinicLists();
-                                      }
-                                  )
-                              );
-
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(top:50),
-                              child: Container(
-                                height:80,
-                                decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
-                                    borderRadius: BorderRadius.circular(5)
-
+                                child: Container(
+                                  margin: const EdgeInsets.only(top: 10, left: 0),
                                 ),
-
-                                child: Center(child: Text('Clinics ',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
-
                               ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context)
-                                      {
-                                        return  VetClinicShopForm();
-                                      }
-                                  )
-                              );
 
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(top:50),
-                              child: Container(
-                                height:80,
-                                decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
-                                    borderRadius: BorderRadius.circular(5)
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context)
+                                          {
+                                            return  AricleScreen();
+                                          }
+                                      )
+                                  );
 
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top:50),
+                                  child: Container(
+                                    height:80,
+                                    decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
+                                        borderRadius: BorderRadius.circular(5)
+
+                                    ),
+
+                                    child: Center(child: Text('Click Here to See Your Appointments',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+
+                                  ),
                                 ),
-
-                                child: Center(child: Text('testing ',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
-
                               ),
-                            ),
-                          ),
 
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context)
-                                      {
-                                        return  TimeRangePickerExample();
-                                      }
-                                  )
-                              );
 
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(top:50),
-                              child: Container(
-                                height:80,
-                                decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
-                                    borderRadius: BorderRadius.circular(5)
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context)
+                                          {
+                                            return  ClinicLists();
+                                          }
+                                      )
+                                  );
 
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top:50),
+                                  child: Container(
+                                    height:80,
+                                    decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
+                                        borderRadius: BorderRadius.circular(5)
+
+                                    ),
+
+                                    child: Center(child: Text('Clinics ',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+
+                                  ),
                                 ),
-
-                                child: Center(child: Text('testing ',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
-
                               ),
-                            ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context)
+                                          {
+                                            return  VetClinicShopForm();
+                                          }
+                                      )
+                                  );
+
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top:50),
+                                  child: Container(
+                                    height:80,
+                                    decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
+                                        borderRadius: BorderRadius.circular(5)
+
+                                    ),
+
+                                    child: Center(child: Text('testing ',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+
+                                  ),
+                                ),
+                              ),
+
+                              InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context)
+                                          {
+                                            return  TimeRangePickerExample();
+                                          }
+                                      )
+                                  );
+
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top:50),
+                                  child: Container(
+                                    height:80,
+                                    decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
+                                        borderRadius: BorderRadius.circular(5)
+
+                                    ),
+
+                                    child: Center(child: Text('testing ',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
+
+                                  ),
+                                ),
+                              ),
+
+                            ],
                           ),
 
-                        ],
+                        ),
+
+
+
+                      ] else if(status == "UnApproved")...[
+                        Text("Your Profile Is In Approval Status")
+
+                      ],
+                    ],
+
+
+                  ),
+                );
+              }
+              else if (sasapshot.connectionState ==
+                  ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              }
+              else{
+                return Padding(
+                  padding: const EdgeInsets.only(top: 60.0),
+                  child: Column(
+                    children: [
+                      Center(child: Text("Please Create Vet Profile" ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30))),
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context)
+                                  {
+                                    return  RegisterationScreen();
+                                  }
+                              )
+                          );
+                        },
+
+                        child: Padding(
+                          padding: const EdgeInsets.only(top:8.0),
+                          child: Container(
+
+                            height: 60,
+                            width: 300,
+                            color: Color.fromRGBO(7, 24, 47, 0.9294117647058824),
+                            child: Center(child: Text("Add Profile",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 19),)),
+
+                          ),
+                        ),
                       ),
 
-                    ),
 
+                    ],
 
-
-                  ] else if(status == "UnApproved")...[
-                    Text("Your Profile Is In Approval Status")
-
-                  ],
-                ],
-
-
-              ),
-            );
-          }
-          else if (sasapshot.connectionState ==
-              ConnectionState.waiting) {
-            return CircularProgressIndicator();
-          }
-          else{
-            return Padding(
-              padding: const EdgeInsets.only(top: 60.0),
-              child: Column(
-                children: [
-                  Center(child: Text("Please Create Vet Profile" ,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30))),
-                  InkWell(
-                    onTap: (){
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context)
-                              {
-                                return  RegisterationScreen();
-                              }
-                          )
-                      );
-                    },
-
-                    child: Padding(
-                      padding: const EdgeInsets.only(top:8.0),
-                      child: Container(
-
-                        height: 60,
-                        width: 300,
-                        color: Color.fromRGBO(7, 24, 47, 0.9294117647058824),
-                        child: Center(child: Text("Add Profile",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 19),)),
-
-                      ),
-                    ),
                   ),
 
-
-                ],
-
-              ),
-
-            );
-          }
-        }
+                );
+              }
+            }
+        ),
+      ),
     ),
     );
   }
