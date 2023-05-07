@@ -3,13 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import '../VetProfile.dart';
-import '../home_screen_clinics.dart';
+import 'VetProfile.dart';
+import '../CLINICVETS/home_screen_clinics.dart';
 
 class EditRegisterationScreen extends StatefulWidget {
-  const EditRegisterationScreen({Key? key}) : super(key: key);
+  String ProfileType;
+   EditRegisterationScreen({Key? key,required this.ProfileType}) : super(key: key);
 
   @override
   State<EditRegisterationScreen> createState() => _EditRegisterationScreenState();
@@ -28,6 +30,9 @@ class _EditRegisterationScreenState extends State<EditRegisterationScreen> {
 
   int _currentValue = 3;
   String imageLink='';
+  String licenseImageLink = '';
+  DateTime? _issueDate;
+  DateTime? _expiryDate;
 
   Future<void> _updateProfile() async {
     final User? currentUser = FirebaseAuth.instance.currentUser;
@@ -47,6 +52,15 @@ class _EditRegisterationScreenState extends State<EditRegisterationScreen> {
           'VetLiceance': LiceanceController.text,
           'description': yourselfController.text,
           'profileImg': imageLink,
+          'licenseImageLink': licenseImageLink,
+
+          'LicenseIssueDate': _issueDate != null
+              ? Timestamp.fromDate(_issueDate!)
+              : null,
+          'LicenseExpiryDate': _expiryDate != null
+              ? Timestamp.fromDate(_expiryDate!)
+              : null,
+
         });
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Profile updated successfully!')));
@@ -57,6 +71,7 @@ class _EditRegisterationScreenState extends State<EditRegisterationScreen> {
     }
   }
 
+  @override
   @override
   void initState() {
     super.initState();
@@ -70,18 +85,24 @@ class _EditRegisterationScreenState extends State<EditRegisterationScreen> {
           .then((snapshot) {
         if (snapshot.exists) {
           setState(() {
-            firstNameController.text = snapshot.data()!['name'] ?? '';
-            _currentValue = int.tryParse(snapshot.data()!['year']) ?? 3;
+            firstNameController.text = snapshot.data()?['name'] ?? '';
+            _currentValue = int.tryParse(snapshot.data()?['year'] ?? '') ?? 3;
             SpecializationController.text =
-                snapshot.data()!['specialization'] ?? '';
+                snapshot.data()?['specialization'] ?? '';
             QualificationController.text =
-                snapshot.data()!['qualification'] ?? '';
+                snapshot.data()?['qualification'] ?? '';
             phoneNumberController.text =
-                snapshot.data()!['phone number'] ?? '';
-            cnicController.text = snapshot.data()!['cnic'] ?? '';
-            LiceanceController.text = snapshot.data()!['VetLiceance'] ?? '';
-            yourselfController.text = snapshot.data()!['description'] ?? '';
-            imageLink = snapshot.data()!['profileImg'] ?? '';
+                snapshot.data()?['phone number'] ?? '';
+            cnicController.text = snapshot.data()?['cnic'] ?? '';
+            LiceanceController.text = snapshot.data()?['VetLiceance'] ?? '';
+            yourselfController.text = snapshot.data()?['description'] ?? '';
+            imageLink = snapshot.data()?['profileImg'] ?? '';
+            licenseImageLink = snapshot.data()?['licenseImageLink'] ?? '';
+
+            Timestamp? issueDate = snapshot.data()?['LicenseIssueDate'];
+            _issueDate = issueDate?.toDate();
+            Timestamp? expiryDate = snapshot.data()?['LicenseExpiryDate'];
+            _expiryDate = expiryDate?.toDate();
           });
         }
       });
@@ -107,7 +128,7 @@ class _EditRegisterationScreenState extends State<EditRegisterationScreen> {
         leading: GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return HomePageClinics();
+              return UserdetailsPage(ProfileType: widget.ProfileType,);
             }));
           },
           child: Icon(
@@ -119,7 +140,7 @@ class _EditRegisterationScreenState extends State<EditRegisterationScreen> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(14),
+            padding:  EdgeInsets.all(14),
             child: Form(
                 key: _formKey,
 
@@ -220,7 +241,7 @@ class _EditRegisterationScreenState extends State<EditRegisterationScreen> {
                     SizedBox(
                       height: height * 0.02,
                     ),
-                    const Center(
+                     Center(
                         child: Text(
                           "Vet Information",
                           style: TextStyle(
@@ -229,6 +250,54 @@ class _EditRegisterationScreenState extends State<EditRegisterationScreen> {
                             fontSize: 19,
                           ),
                         )),
+                    SizedBox(
+                      height: height * 0.02,
+                    ),
+
+                    GestureDetector(
+                      onTap: () async {
+                        final ImagePicker _picker = ImagePicker();
+                        final XFile? image = await _picker.pickImage(
+                            source: ImageSource.gallery);
+                        if (image != null) {
+                          File file = File(image.path);
+                          print("file path is ${file.path}");
+                          String fileName = file.path.split("/").last;
+                          Reference firebaseStorageRef = FirebaseStorage
+                              .instance
+                              .ref()
+                              .child('license-uploads/$fileName');
+                          TaskSnapshot uploadTask =
+                          await firebaseStorageRef.putFile(file);
+                          uploadTask.ref.getDownloadURL().then((value) {
+                            setState(() {
+                              licenseImageLink = value;
+                            });
+                          });
+                        }
+                      },
+                      child: Card(
+                        elevation: 2.0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16.0),
+                        ),
+                        child: Container(
+                          height: height * 0.2,
+                          width: width * 0.7,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16.0),
+                            image: DecorationImage(
+                              fit: BoxFit.fitHeight,
+                              image: NetworkImage(
+                                licenseImageLink != "NULL"
+                                    ? licenseImageLink
+                                    : "https://icon-library.com/images/id-icon/id-icon-15.jpg",
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       height: height * 0.02,
                     ),
@@ -249,6 +318,94 @@ class _EditRegisterationScreenState extends State<EditRegisterationScreen> {
                     ),
                     SizedBox(
                       height: height * 0.02,
+                    ),
+
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () async {
+                              final DateTime? selectedDate =
+                              await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2018),
+                                lastDate: DateTime.now(),
+                              );
+                              if (selectedDate != null) {
+                                setState(() {
+                                  _issueDate = selectedDate;
+                                });
+                              }
+                            },
+                            child: Container(
+                              height: height * 0.1,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16.0),
+                                border: Border.all(
+                                  color: Colors.grey,
+                                  width: 1.0,
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  _issueDate == null
+                                      ? 'Issue Date'
+                                      : DateFormat('yyyy-MM-dd')
+                                      .format(_issueDate!),
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: width * 0.05),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () async {
+                              final DateTime? selectedDate =
+                              await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime(2040),
+                              );
+                              if (selectedDate != null) {
+                                setState(() {
+                                  _expiryDate = selectedDate;
+                                });
+                              }
+                            },
+                            child: Container(
+                              height: height * 0.1,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16.0),
+                                border: Border.all(
+                                  color: Colors.grey,
+                                  width: 1.0,
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  _expiryDate == null
+                                      ? 'Expiry Date'
+                                      : DateFormat('yyyy-MM-dd')
+                                      .format(_expiryDate!),
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: height * 0.02,
@@ -336,13 +493,13 @@ class _EditRegisterationScreenState extends State<EditRegisterationScreen> {
                 )),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 8.0,right: 8.0,),
+            padding:  EdgeInsets.only(left: 8.0,right: 8.0,),
             child: GestureDetector(
               onTap: () {
                 if (_formKey.currentState!.validate()) {
                   _updateProfile();
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return UserdetailsPage();
+                    return UserdetailsPage(ProfileType: widget.ProfileType,);
                   }));
                 }
               },

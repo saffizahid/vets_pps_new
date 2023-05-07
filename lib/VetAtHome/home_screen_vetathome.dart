@@ -91,7 +91,7 @@ class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
                                   MaterialPageRoute(
                                       builder: (context)
                                       {
-                                        return  AricleScreen();
+                                        return  UpcomingAndPastAppointments(ProfileType: 'VETATHOME',);
                                       }
                                   )
                               );

@@ -95,7 +95,7 @@ class _HomePageClinicsState extends State<HomePageClinics> {
                                       MaterialPageRoute(
                                           builder: (context)
                                           {
-                                            return  AricleScreen();
+                                            return  UpcomingAndPastAppointments(ProfileType: 'Clinic',);
                                           }
                                       )
                                   );

@@ -29,8 +29,8 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
 
   int _currentValue = 3;
   int r = 5;
-  String imageLink = '';
-  String licenseImageLink = '';
+  String imageLink = 'NULL';
+  String licenseImageLink = 'NULL';
   DateTime? _issueDate;
   DateTime? _expiryDate;
 
@@ -111,36 +111,35 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                         InkWell(
                           onTap: () async {
                             final ImagePicker _picker = ImagePicker();
-                            final XFile? image = await _picker.pickImage(
-                                source: ImageSource.gallery);
-                            if (image != null) {
+                            final XFile? image =
+                            await _picker.pickImage(source: ImageSource.gallery);
+                            if(image != null){
                               File file = File(image.path);
                               print("file path is ${file.path}");
                               String fileName = file.path.split("/").last;
-                              Reference firebaseStorageRef = FirebaseStorage
-                                  .instance
-                                  .ref()
-                                  .child('uploads/$fileName');
-                              TaskSnapshot uploadTask =
-                                  await firebaseStorageRef.putFile(file);
+                              Reference firebaseStorageRef =
+                              FirebaseStorage.instance.ref().child('uploads/$fileName');
+                              TaskSnapshot uploadTask = await firebaseStorageRef.putFile(file);
                               // TaskSnapshot taskSnapshot =  uploadTask.snapshot;
-                              uploadTask.ref.getDownloadURL().then((value) {
-                                setState(() {
-                                  imageLink = value;
-                                });
-                              });
+                              uploadTask.ref.getDownloadURL().then(
+                                      (value){
+                                    setState(() {
+                                      imageLink=value;
+                                    });
+                                  });
                             }
                           },
                           child: Container(
                             height: height * 0.2,
                             decoration: BoxDecoration(
+                              // color: Color.fromRGBO(26, 59, 106, 1.0),
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
                                   fit: BoxFit.contain,
-                                  image: NetworkImage(imageLink != ""
-                                      ? imageLink
-                                      : "https://www.iconpacks.net/icons/2/free-user-camera-icon-3355-thumb.png"),
-                                )),
+                                  image: NetworkImage(
+                                      imageLink!="NULL"?imageLink:"https://www.iconpacks.net/icons/2/free-user-camera-icon-3355-thumb.png"),
+                                )
+                            ),
                           ),
                         ),
                         TextFormField(
@@ -159,6 +158,10 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                             return null;
                           },
                         ),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+
                         TextFormField(
                           controller: phoneNumberController,
                           keyboardType: TextInputType.number,
@@ -177,6 +180,10 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                             return null;
                           },
                         ),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+
                         TextFormField(
                           controller: cnicController,
                           keyboardType: TextInputType.number,
@@ -195,11 +202,26 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                             return null;
                           },
                         ),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+
                         Center(
                           child: Text(
                             "Vet Information",
+                            style: TextStyle(
+                              color: Color.fromRGBO(26, 59, 106, 1.0),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 19,
+                            ),
+
                           ),
+
                         ),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+
                         GestureDetector(
                           onTap: () async {
                             final ImagePicker _picker = ImagePicker();
@@ -235,7 +257,7 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                                 image: DecorationImage(
                                   fit: BoxFit.fitHeight,
                                   image: NetworkImage(
-                                    licenseImageLink != ""
+                                    licenseImageLink != "NULL"
                                         ? licenseImageLink
                                         : "https://icon-library.com/images/id-icon/id-icon-15.jpg",
                                   ),
@@ -244,22 +266,29 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                             ),
                           ),
                         ),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+
                         TextFormField(
                           controller: LiceanceController,
-                          keyboardType: TextInputType.number,
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.credit_card),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(16.0)),
-                            labelText: 'Vet Licence Number ',
+                            labelText: 'PVMC Licence Number ',
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please Enter Vet Licence Number';
+                              return 'Please Enter PVMC Licence Number';
                             }
                             return null;
                           },
                         ),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+
 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -347,6 +376,10 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                             ),
                           ],
                         ),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+
                         TextFormField(
                           controller: QualificationController,
                           keyboardType: TextInputType.text,
@@ -363,6 +396,10 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                             return null;
                           },
                         ),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+
                         TextFormField(
                           controller: SpecializationController,
                           keyboardType: TextInputType.text,
@@ -379,6 +416,10 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                             return null;
                           },
                         ),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
+
                         Row(
                           children: [
                             Text(
@@ -397,6 +438,10 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                             ),
                           ],
                         ),
+                        SizedBox(
+                          height: height * 0.01,
+                        ),
+
                         SizedBox(
                           height: height * 0.2,
                           child: TextFormField(
@@ -421,31 +466,54 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                       ],
                     ),
                   ),
-                  MaterialButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate() && _issueDate != null && _expiryDate != null) {
-                        ProfileCreationF();
-                        Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return HomePageClinics();
-                        }));
-                      } else if (_issueDate == null || _expiryDate == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Issue Date and Valid Date is Empty '),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0,right: 8.0,),
+                    child: GestureDetector(
+                      onTap: () {
+                        if (_formKey.currentState!.validate() && _issueDate != null && _expiryDate != null && imageLink != "NULL" && licenseImageLink != "NULL") {
+                          ProfileCreationF();
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return HomePageClinics();
+                          }));
+                        } else if (_issueDate == null || _expiryDate == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Issue Date and Valid Date is Empty '),
+                            ),
+                          );
+                        }
+                        else if (imageLink == "NULL" || licenseImageLink == "NULL") {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Profile Picture or License Image is Missing '),
+                            ),
+                          );
+                        }
+                        else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Please fill all required fields.'),
+                            ),
+                          );
+                        }
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(25, 58, 106, 5),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 32),
+                        child: const Center(
+                          child: Text(
+                            "Create Profile",
+                            style: TextStyle(color: Colors.white),
                           ),
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Please fill all required fields.'),
-                          ),
-                        );
-                      }
-                    },
-                    color: Color.fromRGBO(25, 58, 106, 5),
-                    child: Text(
-                      "Create Profile",
+                        ),
+                      ),
                     ),
+                  ),
+                  SizedBox(
+                    height: height * 0.07,
                   ),
                 ],
               ),

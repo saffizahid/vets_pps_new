@@ -7,17 +7,20 @@ import 'package:intl/intl.dart';
 import 'Authntication/auth_page.dart';
 import 'CLINICVETS/home_screen_clinics.dart';
 import 'Style/styles/colors.dart';
+import 'VETATHOME/home_screen_vetathome.dart';
 
-class AricleScreen extends StatefulWidget {
-  AricleScreen();
+class UpcomingAndPastAppointments extends StatefulWidget {
+  String ProfileType;
+  UpcomingAndPastAppointments({Key? key,required this.ProfileType}) : super(key: key);
+
 
   @override
-  AricleScreenState createState() => AricleScreenState();
+  UpcomingAndPastAppointmentsState createState() => UpcomingAndPastAppointmentsState();
 }
 
-class AricleScreenState extends State<AricleScreen>
+class UpcomingAndPastAppointmentsState extends State<UpcomingAndPastAppointments>
     with SingleTickerProviderStateMixin {
-  AricleScreenState();
+  UpcomingAndPastAppointmentsState();
   final CURRENTVET= FirebaseAuth.instance.currentUser!;
   late TabController tabController;
 
@@ -49,12 +52,20 @@ class AricleScreenState extends State<AricleScreen>
           backgroundColor: Color.fromRGBO(26, 59, 106, 1.0),
           elevation: 0,
           leading: GestureDetector(
-            /*   onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return ();
-              }));
+            onTap: () {
+              if (widget.ProfileType == 'Clinic') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePageClinics()),
+                );
+              } else if (widget.ProfileType == 'VETATHOME') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePageVetAtHome()),
+                );
+              }
             },
-         */   child: Icon(
+            child: Icon(
             Icons.arrow_back_sharp, // add custom icons also
           ),
           )),

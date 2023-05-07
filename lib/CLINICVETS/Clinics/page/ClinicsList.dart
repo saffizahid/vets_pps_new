@@ -4,7 +4,7 @@ import 'package:vets_pps_new/CLINICVETS/Clinics/services/firebase_crud.dart';
 import 'package:vets_pps_new/CLINICVETS/home_screen_clinics.dart';
 import '../../../AddServicesCrud/service_list.dart';
 import '../models/clinics.dart';
-import 'addpagesec.dart';
+import 'addpageClinics.dart';
 import 'editpagesec.dart';
 
 class ClinicLists extends StatefulWidget {

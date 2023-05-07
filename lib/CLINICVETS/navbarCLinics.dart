@@ -4,15 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../Payment/Wallet/UserWallet.dart';
-import 'VetProfile.dart';
+import '../Common/VetProfile.dart';
 
 class NavBarClinics extends StatelessWidget {
   final user= FirebaseAuth.instance.currentUser!;
-  GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: <String>[
-      'email',
-    ],
-  );
   @override
   Widget build(BuildContext context) {
     return
@@ -53,7 +48,7 @@ class NavBarClinics extends StatelessWidget {
             )),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return UserdetailsPage();
+                return UserdetailsPage(ProfileType: 'Clinic',);
               }));
             },
           ),

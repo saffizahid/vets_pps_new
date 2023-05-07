@@ -61,18 +61,18 @@ class _AddPageClinics extends State<AddPageClinics> {
   }
 
   LatLng _selectedLocation = LatLng(31.364200566573757, 74.21615783125164);
-
-  @override
-  void initState() async {
-    super.initState();
+  Future<void> _getLocation() async {
     Position position = await Geolocator.getCurrentPosition();
-    _selectedLocation = LatLng(position.latitude, position.longitude);
     setState(() {
       _selectedLocation = LatLng(position.latitude, position.longitude);
-
     });
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _getLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +188,7 @@ class _AddPageClinics extends State<AddPageClinics> {
         leading: GestureDetector(
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const HomePageClinics();
+              return  ClinicLists();
             }));
           },
           child: const Icon(

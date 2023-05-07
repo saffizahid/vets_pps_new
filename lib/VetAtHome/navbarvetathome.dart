@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../CLINICVETS/VetProfile.dart';
+import '../Common/VetProfile.dart';
 import '../Payment/Wallet/UserWalletVAH.dart';
 
 class NavBarVAH extends StatelessWidget {
@@ -44,7 +44,7 @@ class NavBarVAH extends StatelessWidget {
             )),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return UserdetailsPage();
+                return UserdetailsPage(ProfileType: "VETATHOME",);
               }));
             },
           ),
