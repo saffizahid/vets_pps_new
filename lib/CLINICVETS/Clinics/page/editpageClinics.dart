@@ -323,7 +323,16 @@ class _EditPageSec extends State<EditPageSec> {
                       Text("Selected Days: ${_selectedDays.skip(1).join(", ")}"),
                       SizedBox(height: 16),
                       ElevatedButton(
-                        child: Text("Select Days"),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            Color.fromRGBO(26, 59, 106, 1.0),
+                          ),
+                          textStyle: MaterialStateProperty.all<TextStyle>(
+                            TextStyle(color: Colors.white),
+                          ),
+                        ),
+
+                        child: Text("Select Days",style: TextStyle(color: Colors.white)),
                         onPressed: _showDaysPopup,
                       ),
                       const SizedBox(height: 30.0),
@@ -332,6 +341,15 @@ class _EditPageSec extends State<EditPageSec> {
                         children: [
                           Text("Selected Location: $_selectedLocation"),
                           ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                Color.fromRGBO(26, 59, 106, 1.0),
+                              ),
+                              textStyle: MaterialStateProperty.all<TextStyle>(
+                                TextStyle(color: Colors.white),
+                              ),
+                            ),
+
                             onPressed: () async {
                               LatLng? result = await showDialog(
                                 context: context,
@@ -345,7 +363,7 @@ class _EditPageSec extends State<EditPageSec> {
                                 });
                               }
                             },
-                            child: Text("Select Location"),
+                            child: Text("Select Location",style: TextStyle(color: Colors.white)),
                           ),
                         ],
                       ),

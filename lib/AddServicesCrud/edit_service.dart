@@ -37,97 +37,111 @@ class _EditServiceState extends State<EditService> {
         centerTitle: true,
 
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: FutureBuilder(
-          future: _getServiceData(),
-          builder: (BuildContext context,
-              AsyncSnapshot<DocumentSnapshot> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error fetching data'));
-            } else {
-              final data = snapshot.data!.data() as Map<String, dynamic>;
-              _title = data['serviceTitle'] ?? '';
-              _description = data['serviceDescription'] ?? '';
-              _type = data['serviceType'] ?? '';
-              _price = data['servicePrice'] ?? '';
-              return Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                   /* TextFormField(
-                      initialValue: widget.serviceId,
-                      decoration: InputDecoration(labelText: 'Service ID'),
-                      enabled: false,
-                    ),
-                   */ TextFormField(
-                      initialValue: _title,
-                      decoration: InputDecoration(labelText: 'Title'),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter a title';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) => _title = value!,
-                    ),
-                    TextFormField(
-                      initialValue: _description,
-                      decoration: InputDecoration(labelText: 'Description'),
-                      maxLines: 3,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter a description';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) => _description = value!,
-                    ),
-                    TextFormField(
-                      initialValue: _type,
-                      decoration: InputDecoration(labelText: 'Type'),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter a type';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) => _type = value!,
-                    ),
-                    TextFormField(
-                      initialValue: _price,
-                      decoration: InputDecoration(labelText: 'Price'),
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter a Price';
-                        }
-                        return null;
-                      },
-                      onSaved: (value) => _price = value!,
-                    ),
-                    SizedBox(height: 16),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Color.fromRGBO(26, 59, 106, 1.0),
-                      // Replace with your desired color
-                         elevation: 3, // Controls the button's elevation
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20), // Controls the button's shape
-                        ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: FutureBuilder(
+            future: _getServiceData(),
+            builder: (BuildContext context,
+                AsyncSnapshot<DocumentSnapshot> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error fetching data'));
+              } else {
+                final data = snapshot.data!.data() as Map<String, dynamic>;
+                _title = data['serviceTitle'] ?? '';
+                _description = data['serviceDescription'] ?? '';
+                _type = data['serviceType'] ?? '';
+                _price = data['price'] ?? '';
+                return Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                     /* TextFormField(
+                        initialValue: widget.serviceId,
+                        decoration: InputDecoration(labelText: 'Service ID'),
+                        enabled: false,
                       ),
-                      onPressed: _editService,
-                      child: Text('Save',style: TextStyle(color: Color.fromRGBO(
-                          214, 217, 220, 1.0), fontSize: 15),),
-                    ),
-                  ],
-                ),
-              );
-            }
-          },
+                     */ TextFormField(
+                        initialValue: _title,
+                        decoration: InputDecoration(
+                          labelText: 'Service Title',
+                          icon: Icon(Icons.title),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a title';
+                          }
+                          return null;
+                        },
+                        onSaved: (value) => _title = value!,
+                      ),
+                      TextFormField(
+                        initialValue: _description,
+                        decoration: InputDecoration(
+                          labelText: 'Service Description',
+                          icon: Icon(Icons.description),
+                        ),
+                        maxLines: 3,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a description';
+                          }
+                          return null;
+                        },
+                        onSaved: (value) => _description = value!,
+                      ),
+                      TextFormField(
+                        initialValue: _type,
+                        decoration: InputDecoration(
+                          labelText: 'Service Type',
+                          icon: Icon(Icons.category),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a type';
+                          }
+                          return null;
+                        },
+                        onSaved: (value) => _type = value!,
+                      ),
+                      TextFormField(
+                        initialValue: _price,
+                        decoration: InputDecoration(
+                          labelText: 'Price',
+                          icon: Icon(Icons.price_change),
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a Price';
+                          }
+                          return null;
+                        },
+                        onSaved: (value) => _price = value!,
+                      ),
+                      SizedBox(height: 16),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Color.fromRGBO(26, 59, 106, 1.0),
+                        // Replace with your desired color
+                           elevation: 3, // Controls the button's elevation
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20), // Controls the button's shape
+                          ),
+                        ),
+                        onPressed: _editService,
+                        child: Text('Save',style: TextStyle(color: Color.fromRGBO(
+                            214, 217, 220, 1.0), fontSize: 15),),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            },
+          ),
         ),
       ),
     );
@@ -148,7 +162,7 @@ class _EditServiceState extends State<EditService> {
         'serviceTitle': _title,
         'serviceDescription': _description,
         'serviceType': _type,
-        'servicePrice': _price,
+        'price': _price,
         'userId': user.uid,
       };
 

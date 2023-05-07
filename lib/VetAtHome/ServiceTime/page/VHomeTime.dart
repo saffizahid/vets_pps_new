@@ -152,7 +152,7 @@ class _VHomeTimeLists extends State<VHomeTimeLists> {
 
                                   onPressed: () {
                                     Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                      return ServiceList(clinicId: vHomeTimeid,);
+                                      return ServiceList(clinicId: vHomeTimeid, ProfileType: 'VETATHOME',);
                                     }));
                                   },
 

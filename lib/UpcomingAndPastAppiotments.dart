@@ -43,8 +43,8 @@ class UpcomingAndPastAppointmentsState extends State<UpcomingAndPastAppointments
 
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-            "Your Appiotments",
+          title: const Text(
+            "Your Appointment's",
             style: TextStyle(
                 color: Color.fromRGBO(214, 217, 220, 1.0), fontSize: 15),
           ),
@@ -66,7 +66,7 @@ class UpcomingAndPastAppointmentsState extends State<UpcomingAndPastAppointments
               }
             },
             child: Icon(
-            Icons.arrow_back_sharp, // add custom icons also
+            Icons.arrow_back_sharp,color: Colors.white, // add custom icons also
           ),
           )),
 
@@ -124,6 +124,7 @@ class UpcomingAndPastAppointmentsState extends State<UpcomingAndPastAppointments
                               "serviceId",
                               isEqualTo: FirebaseAuth.instance.currentUser!.uid,
                             )
+                                .orderBy("bookingStart", descending: false) // sort by bookingStart in descending order
                                 .snapshots(),
                             builder: (context, AsyncSnapshot snapshot) {
                               if (snapshot.hasError) {
@@ -626,7 +627,13 @@ class UpcomingAndPastAppointmentsState extends State<UpcomingAndPastAppointments
                                   child: CircularProgressIndicator(color: Colors.white),
                                 );
                               }
-                            }),
+
+
+                            }
+                        )
+
+
+
                       ),
 
 
@@ -647,6 +654,7 @@ class UpcomingAndPastAppointmentsState extends State<UpcomingAndPastAppointments
                               "serviceId",
                               isEqualTo: FirebaseAuth.instance.currentUser!.uid,
                             )
+                                .orderBy("bookingStart", descending: true) // sort by bookingStart in descending order
                                 .snapshots(),
                             builder: (context, AsyncSnapshot snapshot) {
                               if (snapshot.hasError) {

@@ -3,10 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:time_range/time_range.dart';
 import 'package:vets_pps_new/CLINICVETS/Clinics/services/firebase_crud.dart';
-import '../../home_screen_clinics.dart';
 import 'ClinicsList.dart';
 import 'checkbox.dart';
 import 'location.dart';
@@ -27,9 +25,6 @@ class _AddPageClinics extends State<AddPageClinics> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final user = FirebaseAuth.instance.currentUser!;
-  DateTime? _fromTime;
-  DateTime? _toTime;
-  final DateFormat _timeFormat = DateFormat('hh:mm a');
   late String startTimes;
   late String endTimes;
   List<String> _selectedDays = [];
@@ -106,14 +101,6 @@ class _AddPageClinics extends State<AddPageClinics> {
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
 
-    final clinicpinlocation = TextFormField(
-      controller: clinicClinic,
-      decoration: const InputDecoration(
-        labelText: 'Pin location',
-        hintText: 'Tap the button to get your current location',
-      ),
-    );
-
     final SaveButon = Material(
       //elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
@@ -162,8 +149,6 @@ class _AddPageClinics extends State<AddPageClinics> {
 
 
           }
-
-
 
         },
         child: const Text(
@@ -289,8 +274,16 @@ class _AddPageClinics extends State<AddPageClinics> {
                       Text("Selected Days: ${_selectedDays.skip(1).join(", ")}"),
                       const SizedBox(height: 16),
                       ElevatedButton(
-                        child: const Text("Select Days"),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            Color.fromRGBO(26, 59, 106, 1.0),
+                          ),
+                          textStyle: MaterialStateProperty.all<TextStyle>(
+                            TextStyle(color: Colors.white),
+                          ),
+                        ),
                         onPressed: _showDaysPopup,
+                        child: const Text("Select Days",style: TextStyle(color: Colors.white),),
                       ),
                       const SizedBox(height: 30.0),
                      Column(
@@ -298,6 +291,15 @@ class _AddPageClinics extends State<AddPageClinics> {
                       children: [
                         Text("Selected Location: $_selectedLocation"),
                         ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              Color.fromRGBO(26, 59, 106, 1.0),
+                            ),
+                            textStyle: MaterialStateProperty.all<TextStyle>(
+                              TextStyle(color: Colors.white),
+                            ),
+                          ),
+
                           onPressed: () async {
                             LatLng? result = await showDialog(
                               context: context,
@@ -311,11 +313,11 @@ class _AddPageClinics extends State<AddPageClinics> {
                               });
                             }
                           },
-                          child: Text("Select Location"),
+                          child: Text("Select Location",style: TextStyle(color: Colors.white)),
                         ),
                       ],
                     ),
-                  
+
 
                   const SizedBox(height: 2.0),
                       SaveButon,
@@ -330,4 +332,11 @@ class _AddPageClinics extends State<AddPageClinics> {
       ),
     );
   }
+
+
+
+
+
+
+
 }
