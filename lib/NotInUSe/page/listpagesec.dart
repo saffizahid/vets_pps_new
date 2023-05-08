@@ -1,3 +1,4 @@
+/*
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../models/services.dart';
@@ -65,9 +66,11 @@ class _ListPageSec extends State<ListPageSec> {
                         child: (Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                           /* Text("Contact Number: " + e['contact_no'],
+                           */
+/* Text("Contact Number: " + e['contact_no'],
                                 style: const TextStyle(fontSize: 12)),
-                           */ Text("price: " + e['price'],
+                           *//*
+ Text("price: " + e['price'],
                                 style: const TextStyle(fontSize: 12)),
                             Text("servicetype: " + e['servicetype'],
                                 style: const TextStyle(fontSize: 14)),
@@ -176,3 +179,4 @@ class _ListPageSec extends State<ListPageSec> {
     );
   }
 }
+*/

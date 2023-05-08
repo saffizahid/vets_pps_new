@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 
 import 'package:scrollable_list_tabview/scrollable_list_tabview.dart';
@@ -49,10 +50,12 @@ class _DetailScreenState extends State<DetailScreen> with SingleTickerProviderSt
                         height: 200.0,
                         width: double.infinity,
                         color: Colors.grey,
-                        /*child: Image(
+                        */
+/*child: Image(
                             fit: BoxFit.cover,
                             image: AssetImage()),
-                      */),
+                      *//*
+),
                       // Padding(
                       //   padding: const EdgeInsets.all(10.0),
                       //   child: Text(
@@ -77,8 +80,10 @@ class _DetailScreenState extends State<DetailScreen> with SingleTickerProviderSt
             tabAnimationDuration: const Duration(milliseconds: 150),
             tabs: [
               ScrollableListTab(
-                tab: const ListTab(/* style: TextStyle(color: Colors.green , fontFamily: Bold , fontSize: 25),
-           */
+                tab: const ListTab(*/
+/* style: TextStyle(color: Colors.green , fontFamily: Bold , fontSize: 25),
+           *//*
+
 
                   label: Text('Popular' , style: TextStyle(fontFamily: Bold),),
                   borderRadius: BorderRadius.all( Radius.circular(20.0)),
@@ -182,3 +187,4 @@ class _DetailScreenState extends State<DetailScreen> with SingleTickerProviderSt
     );
   }
 }
+*/

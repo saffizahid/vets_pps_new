@@ -1,3 +1,4 @@
+/*
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -106,7 +107,8 @@ class _AddPageSec extends State<AddPageSec> {
             OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
 
 
-    /*final contactField = TextFormField(
+    */
+/*final contactField = TextFormField(
         controller: _services_contact,
         autofocus: false,
         keyboardType: TextInputType.number,
@@ -125,17 +127,20 @@ class _AddPageSec extends State<AddPageSec> {
             hintText: "Contact Number",
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
-*/
+*//*
+
     final viewListbutton = TextButton(
         onPressed: () {
-          /*Navigator.pushAndRemoveUntil<dynamic>(
+          */
+/*Navigator.pushAndRemoveUntil<dynamic>(
             context,
             MaterialPageRoute<dynamic>(
               builder: (BuildContext context) => ListPageSec(),
             ),
             (route) => false, //if you want to disable back feature set to false
           );
-        */},
+        *//*
+},
         child: const Text('View List of Services'));
 
     final SaveButon = Material(
@@ -227,9 +232,11 @@ class _AddPageSec extends State<AddPageSec> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     nameField,
-                    /*const SizedBox(height: 25.0),
+                    */
+/*const SizedBox(height: 25.0),
                     contactField,
-                    */const SizedBox(height: 35.0),
+                    *//*
+const SizedBox(height: 35.0),
                     servicetypeField,
                     const SizedBox(height: 35.0),
                     servicedescriptionField,
@@ -252,3 +259,4 @@ class _AddPageSec extends State<AddPageSec> {
     );
   }
 }
+*/
