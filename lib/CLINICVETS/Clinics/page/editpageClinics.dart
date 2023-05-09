@@ -143,19 +143,6 @@ class _EditPageSec extends State<EditPageSec> {
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
 
-    final clinicpinlocation = TextFormField(
-        controller: clinicClinic,
-        autofocus: false,
-        validator: (value) {
-          if (value == null || value.trim().isEmpty) {
-            return 'This field is required';
-          }
-        },
-        decoration: InputDecoration(
-            contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            hintText: "Enter Clinic Pin Location",
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
 
     final SaveButon = Material(
       elevation: 5.0,
@@ -175,7 +162,9 @@ class _EditPageSec extends State<EditPageSec> {
                 pinlocation: GeoPoint(0,0),
                 selecteddays: _selectedDays,
                 unselecteddays: _unselectedDays,
-                timeslotduration: dropdownValue);
+                timeslotduration: dropdownValue
+
+            );
             if (response.code != 200) {
               showDialog(
                   context: context,

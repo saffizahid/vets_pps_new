@@ -16,8 +16,6 @@ class VAHFirebaseCrud {
     required List<String> selecteddays,
     required List<int> unselecteddays,
     required String timeslotduration,
-    required bool CLINICAVALIBLE,
-
   }) async {
     Response response = Response();
     DocumentReference documentReferencer = _Collection.doc(user.uid);
@@ -30,8 +28,6 @@ class VAHFirebaseCrud {
       "selectedDays": selecteddays,
       "unselectedDays": unselecteddays,
       "timeSlotDuration": timeslotduration,
-      "CLINICAVALIBLE" : CLINICAVALIBLE,
-
     };
 
     var result = await documentReferencer

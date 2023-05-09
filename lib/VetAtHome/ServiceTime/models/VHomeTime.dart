@@ -9,8 +9,6 @@ class VHomeTimes {
   List<String>? selectedDays;
   List<int>? unselectedDays;
   String? timeSlotDuration;
-  bool CLINICAVALIBLE;
-
 
   VHomeTimes({
     this.uid,
@@ -21,7 +19,5 @@ class VHomeTimes {
     this.selectedDays,
     this.unselectedDays,
     this.timeSlotDuration,
-    required this.CLINICAVALIBLE
-
   });
 }

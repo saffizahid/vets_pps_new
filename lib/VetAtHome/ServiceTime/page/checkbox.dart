@@ -45,7 +45,11 @@ class _DaysCheckboxWidgetState extends State<DaysCheckboxWidget> {
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-           children: List<Widget>.generate(_daysList.length, (int index) {
+          children: List<Widget>.generate(_daysList.length, (int index) {
+            if (index == 0) {
+              // Skip the empty string at index 0
+              return SizedBox.shrink();
+            }
             return CheckboxListTile(
               title: Text(_daysList[index]),
               value: _isCheckedList[index],
