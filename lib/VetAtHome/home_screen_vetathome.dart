@@ -18,6 +18,25 @@ class HomePageVetAtHome extends StatefulWidget {
 
 class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
   final user= FirebaseAuth.instance.currentUser!;
+   String name="abc";
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection('vets')
+        .doc(user.uid)
+        .get()
+        .then((doc) {
+      if (doc.exists) {
+        setState(() {
+          name = doc['name'];
+        });
+      }
+    });
+  }
+
+//Hello Dr. <vet name> not displayed yet.
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +46,8 @@ class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
     return Scaffold(
       drawer: NavBarVAH(),
       appBar: AppBar(
+        //title: Text('Hi, '+ name,style: TextStyle(color: Color.fromRGBO(26, 59, 106, 1.0), fontSize: 15),),
+
         title: Text('Home Page Vet At Home'!,style: TextStyle(color: Colors.white, fontSize: 16),),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(26, 59, 106, 1.0),
