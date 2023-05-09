@@ -60,7 +60,7 @@ class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
                           InkWell(
 
                             child: Container(
-                              margin: const EdgeInsets.only(top: 80, left: 0),
+                              margin: const EdgeInsets.only(top: 0, left: 0),
                               //child: Image.asset('android/Images/3.png'
                               //),
                             ),
@@ -101,14 +101,13 @@ class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
                             child: Padding(
                               padding: const EdgeInsets.only(top:50),
                               child: Container(
-                                height:80,
-                                decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
-                                    borderRadius: BorderRadius.circular(5)
-
+                                width: 300,
+                                height: 150,
+                                margin: const EdgeInsets.only(top: 0, left: 0),
+                                child: Image.asset(
+                                  'android/Images/app.png',
+                                  fit: BoxFit.fitHeight,
                                 ),
-
-                                child: Center(child: Text('Click Here to See Your Appointments',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
-
                               ),
                             ),
                           ),
@@ -134,17 +133,13 @@ class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
                               );
 
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.only(top:50),
-                              child: Container(
-                                height:80,
-                                decoration: BoxDecoration(color: Color.fromRGBO(26, 59, 106, 1.0),
-                                    borderRadius: BorderRadius.circular(5)
-
-                                ),
-
-                                child: Center(child: Text('Vets At Home ',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)),
-
+                            child: Container(
+                              width: 300,
+                              height: 150,
+                              margin: const EdgeInsets.only(top: 0, left: 0),
+                              child: Image.asset(
+                                'android/Images/srv.png',
+                                fit: BoxFit.fitHeight,
                               ),
                             ),
                           ),
@@ -159,7 +154,8 @@ class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
 
 
 
-                  ] else if(status == "UnApproved")...[
+                  ]
+                  else if(status == "UnApproved")...[
                     Text("Your Profile Is In Approval Status")
 
                   ],

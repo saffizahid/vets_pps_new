@@ -108,6 +108,8 @@ flutter:
     - android/Images/4.png
     - android/Images/5.png
     - android/Images/Splash.png
+    - android/Images/app.png
+    - android/Images/srv.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
