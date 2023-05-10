@@ -76,6 +76,43 @@ class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
 
                       Column(
                         children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 10.0, left: 20.0),
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Welcome,',
+                                    style: TextStyle(
+                                        color: Colors.blue[900],
+                                      fontSize: 24.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10.0),
+                                  Text(
+                                    name,
+                                    style: TextStyle(
+                                      color: Colors.blue[900],
+                                      fontSize: 24.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 20.0),
+                                  Text(
+                                    'We are excited to have you with us!',
+                                    style: TextStyle(
+                                      color: Colors.grey[600],
+                                      fontSize: 16.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+
 
                           InkWell(
 
@@ -99,7 +136,7 @@ class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
                             },
             */
                             child: Container(
-                              margin: const EdgeInsets.only(top: 10, left: 0),
+                              margin: const EdgeInsets.only(top: 0, left: 0),
                               /*child: Image.asset('android/Images/4.png'
                               ),*/
                             ),
@@ -119,7 +156,7 @@ class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
 
                             },
                             child: Padding(
-                              padding: const EdgeInsets.only(top:50),
+                              padding: const EdgeInsets.only(top:30),
                               child: Container(
                                 width: 300,
                                 height: 150,

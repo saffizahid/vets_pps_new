@@ -16,11 +16,30 @@ class HomePageClinics extends StatefulWidget {
 
 class _HomePageClinicsState extends State<HomePageClinics> {
   final user= FirebaseAuth.instance.currentUser!;
+  String name= 'abc';
+
   @override
   void initState() {
     super.initState();
+    //super.initState();
     requestLocationPermission();
+    FirebaseFirestore.instance
+        .collection('vets')
+        .doc(user.uid)
+        .get()
+        .then((doc) {
+      if (doc.exists) {
+        setState(() {
+          name = doc['name'];
+        });
+      }
+    });
   }
+ // @override
+  //void initState() {
+    //super.initState();
+   // requestLocationPermission();
+ // }
 
   Future<void> requestLocationPermission() async {
     final PermissionStatus status = await Permission.location.request();
@@ -37,6 +56,8 @@ class _HomePageClinicsState extends State<HomePageClinics> {
     return Scaffold(
       drawer: NavBarClinics(),
       appBar: AppBar(
+        //title: Text('Hi, '+name , style: TextStyle(color: Color.fromRGBO(26, 59, 106, 1.0), fontSize: 15),),
+
         title: Text('Home Page Clinics',style: TextStyle(color: Colors.white, fontSize: 16),),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(26, 59, 106, 1.0),
@@ -70,6 +91,43 @@ class _HomePageClinicsState extends State<HomePageClinics> {
 
                           Column(
                             children: [
+                              Padding(
+                                padding: EdgeInsets.only(top: 10.0, left: 20.0),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Welcome,',
+                                        style: TextStyle(
+                                          color: Colors.blue[900],
+                                          fontSize: 24.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 10.0),
+                                      Text(
+                                        name,
+                                        style: TextStyle(
+                                          color: Colors.blue[900],
+                                          fontSize: 24.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 20.0),
+                                      Text(
+                                        'We are excited to have you with us!',
+                                        style: TextStyle(
+                                          color: Colors.grey[600],
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+
 
                               InkWell(
 
@@ -80,7 +138,7 @@ class _HomePageClinicsState extends State<HomePageClinics> {
                               InkWell(
 
                                 child: Container(
-                                  margin: const EdgeInsets.only(top: 10, left: 0),
+                                  margin: const EdgeInsets.only(top: 0, left: 0),
                                 ),
                               ),
 
@@ -98,7 +156,7 @@ class _HomePageClinicsState extends State<HomePageClinics> {
 
                                 },
                                 child: Padding(
-                                  padding: const EdgeInsets.only(top:50),
+                                  padding: const EdgeInsets.only(top:30),
                                   child: Container(
                                     width: 300,
                                     height: 150,
