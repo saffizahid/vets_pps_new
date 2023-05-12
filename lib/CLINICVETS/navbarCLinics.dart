@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../Payment/Wallet/UserWallet.dart';
 import '../Common/VetProfile.dart';
+import '../mainpage2.dart';
 
 class NavBarClinics extends StatelessWidget {
   final user= FirebaseAuth.instance.currentUser!;
@@ -87,17 +88,15 @@ class NavBarClinics extends StatelessWidget {
               color: Colors.white,
             )),
             onTap: (){
-              FirebaseFirestore.instance.collection("vet_wallet").doc(user.uid).get().then((value) {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context)
-                        {
-                          return  WalletScreen(user: user, userMap: value.data()!,);
-                        }
-                    )
-                );
-              });
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context)
+                      {
+                        return  WalletScreen(ProfileType: 'Clinic',);
+                      }
+                  )
+              );
 
             },),
 
@@ -158,8 +157,14 @@ class NavBarClinics extends StatelessWidget {
               color: Colors.white,
             )),
             leading: Icon(Icons.exit_to_app,color: Colors.white,),
-            onTap: () => FirebaseAuth.instance.signOut(),
-          ),
+            onTap: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => MainPage()),
+                    (route) => false,
+              );
+            },),
         ],
       ),
     );

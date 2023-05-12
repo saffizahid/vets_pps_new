@@ -47,10 +47,12 @@ class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
       appBar: AppBar(
         //title: Text('Hi, '+ name,style: TextStyle(color: Color.fromRGBO(26, 59, 106, 1.0), fontSize: 15),),
 
-        title: Text('Home Page Vet At Home'!,style: TextStyle(color: Colors.white, fontSize: 16),),
+        title: Text('VET AT HOME'!,style: TextStyle(color: Colors.white, fontSize: 16),),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(26, 59, 106, 1.0),
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white,),
+
 
       ),body:
     StreamBuilder(
@@ -77,7 +79,7 @@ class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
                       Column(
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(top: 10.0, left: 20.0),
+                            padding: EdgeInsets.only(top: 18.0, left: 20.0),
                             child: Align(
                               alignment: Alignment.topLeft,
                               child: Column(
@@ -86,59 +88,30 @@ class _HomePageVetAtHomeState extends State<HomePageVetAtHome> {
                                   Text(
                                     'Welcome,',
                                     style: TextStyle(
-                                        color: Colors.blue[900],
-                                      fontSize: 24.0,
+                                        color: Color.fromRGBO(26, 59, 106, 1.0),
+                                      fontSize: 29.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(height: 10.0),
+                                  SizedBox(height: 3.0),
                                   Text(
                                     name,
                                     style: TextStyle(
-                                      color: Colors.blue[900],
-                                      fontSize: 24.0,
+                                      color: Color.fromRGBO(26, 59, 106, 1.0),
+                                      fontSize: 29.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(height: 20.0),
+                                  SizedBox(height: 7.0),
                                   Text(
                                     'We are excited to have you with us!',
                                     style: TextStyle(
                                       color: Colors.grey[600],
-                                      fontSize: 16.0,
+                                      fontSize: 19.0,
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                          ),
-
-
-                          InkWell(
-
-                            child: Container(
-                              margin: const EdgeInsets.only(top: 0, left: 0),
-                              //child: Image.asset('android/Images/3.png'
-                              //),
-                            ),
-                          ),
-                          InkWell(
-                            /* onTap: (){
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context)
-                                      {
-                                        return  ProfileScreen();
-                                      }
-                                  )
-                              );
-                            },
-            */
-                            child: Container(
-                              margin: const EdgeInsets.only(top: 0, left: 0),
-                              /*child: Image.asset('android/Images/4.png'
-                              ),*/
                             ),
                           ),
 

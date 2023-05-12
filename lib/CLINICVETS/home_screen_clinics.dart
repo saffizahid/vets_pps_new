@@ -58,10 +58,12 @@ class _HomePageClinicsState extends State<HomePageClinics> {
       appBar: AppBar(
         //title: Text('Hi, '+name , style: TextStyle(color: Color.fromRGBO(26, 59, 106, 1.0), fontSize: 15),),
 
-        title: Text('Home Page Clinics',style: TextStyle(color: Colors.white, fontSize: 16),),
+        title: Text('CLINICS',style: TextStyle(color: Colors.white, fontSize: 16),),
         centerTitle: true,
         backgroundColor: Color.fromRGBO(26, 59, 106, 1.0),
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white,),
+
 
       ),body:
     Container(
@@ -101,26 +103,26 @@ class _HomePageClinicsState extends State<HomePageClinics> {
                                       Text(
                                         'Welcome,',
                                         style: TextStyle(
-                                          color: Colors.blue[900],
-                                          fontSize: 24.0,
+                                          color: Color.fromRGBO(26, 59, 106, 1.0),
+                                          fontSize: 29.0,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      SizedBox(height: 10.0),
+                                      SizedBox(height: 3.0),
                                       Text(
                                         name,
                                         style: TextStyle(
-                                          color: Colors.blue[900],
-                                          fontSize: 24.0,
+                                          color: Color.fromRGBO(26, 59, 106, 1.0),
+                                          fontSize: 29.0,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      SizedBox(height: 20.0),
+                                      SizedBox(height: 7.0),
                                       Text(
                                         'We are excited to have you with us!',
                                         style: TextStyle(
                                           color: Colors.grey[600],
-                                          fontSize: 16.0,
+                                          fontSize: 19.0,
                                         ),
                                       ),
                                     ],

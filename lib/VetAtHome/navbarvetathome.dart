@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../Common/VetProfile.dart';
+import '../Payment/Wallet/UserWallet.dart';
 import '../Payment/Wallet/UserWalletVAH.dart';
+import '../mainpage2.dart';
 
 class NavBarVAH extends StatelessWidget {
   final user= FirebaseAuth.instance.currentUser!;
@@ -60,7 +62,7 @@ class NavBarVAH extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context)
                         {
-                          return  VAHWalletScreen(user: user, userMap: value.data()!,);
+                          return  WalletScreen(ProfileType: 'VETATHOME',);
                         }
                     )
                 );
@@ -82,8 +84,14 @@ class NavBarVAH extends StatelessWidget {
               color: Colors.white,
             )),
             leading: Icon(Icons.exit_to_app,color: Colors.white,),
-            onTap: () => FirebaseAuth.instance.signOut(),
-          ),
+            onTap: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => MainPage()),
+                    (route) => false,
+              );
+            }, ),
         ],
       ),
     );

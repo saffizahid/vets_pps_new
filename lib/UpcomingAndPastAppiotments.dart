@@ -370,18 +370,40 @@ class UpcomingAndPastAppointmentsState extends State<UpcomingAndPastAppointments
                                                                         showDialog(
                                                                           context: context,
                                                                           builder: (ctx) => AlertDialog(
-                                                                            title: const Text("Cancel Booking"),
-                                                                            content: const Text("Are you sure you want to cancel this booking"),
+                                                                            shape: RoundedRectangleBorder(
+                                                                              borderRadius: BorderRadius.circular(10.0),
+                                                                            ),
+
+                                                                            title: const Text("Cancel Booking",style: TextStyle(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              fontSize: 18,color: Color.fromRGBO(26, 59, 106, 1.0),
+
+                                                                            ),
+                                                                            ),
+                                                                            content: const Text("Are you sure you want to cancel this booking",
+                                                                              style: TextStyle(fontSize: 17,fontWeight: FontWeight.w500,
+                                                                                color: Color.fromRGBO(26, 59, 106, 1.0),
+                                                                              ),
+
+                                                                            ),
                                                                             actions: <Widget>[
                                                                               TextButton(
-                                                                                child: const Text('No'),
+                                                                                child: const Text('No',style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontSize: 18,color: Color.fromRGBO(26, 59, 106, 1.0),
+
+                                                                                ),),
                                                                                 onPressed: () {
                                                                                   Navigator.of(context).pop();
                                                                                 },
                                                                               ),
                                                                               TextButton(
                                                                                 child:
-                                                                                const Text('Yes',style: TextStyle( color: Color.fromRGBO(26, 59, 106, 1.0),),),
+                                                                                const Text('Yes',style: TextStyle(
+                                                                        fontWeight: FontWeight.bold,
+                                                                        fontSize: 18,color: Color.fromRGBO(26, 59, 106, 1.0),
+
+                                                                        ),),
                                                                                 onPressed: () async {
                                                                                   try {
                                                                                     final _db = FirebaseFirestore.instance;
@@ -411,14 +433,6 @@ class UpcomingAndPastAppointmentsState extends State<UpcomingAndPastAppointments
 
                                                                                     int NewBalance = UserBalance + CaneledAmountVet + CanecledComapnyAmount;
 
-/*
-                                                                                    DocumentSnapshot ComapnyWalletData = await canceldb0.collection("company_wallet").doc("Company_wallet").get();
-                                                                                    int ComapnyBalance = ComapnyWalletData.get("wallet").toInt();
-                                                                                    print("ComapnyBalance = ");
-                                                                                    print(ComapnyBalance);
-
-                                                                                    int NewComapnyBalance = ComapnyBalance + CanecledComapnyAmount;
-*/
 
                                                                                     final canceldb = FirebaseFirestore.instance;
                                                                                     await canceldb.collection("vet_temp_wallet").doc(bookingID).update({"status": "Cancelled by Vet","wallet":0});
@@ -429,14 +443,13 @@ class UpcomingAndPastAppointmentsState extends State<UpcomingAndPastAppointments
                                                                                     final canceldb3 = FirebaseFirestore.instance;
                                                                                     await canceldb3.collection("user").doc(USERID).update({"wallet":NewBalance});
 
-                                                                                    /*final canceldb4 = FirebaseFirestore.instance;
-                                                                                    await canceldb4.collection("company_wallet").doc("Company_wallet").update({"wallet":NewComapnyBalance});
-*/
                                                                                     print("All statements executed successfully!");
                                                                                     Navigator.of(context).pop();
                                                                                   } catch (e) {
                                                                                     print("An error occurredsssssssssss: $e");
                                                                                   }
+                                                                                  Navigator.of(context).pop();
+
                                                                                 },
                                                                               ),
                                                                             ],),
@@ -463,17 +476,36 @@ class UpcomingAndPastAppointmentsState extends State<UpcomingAndPastAppointments
                                                                         showDialog(
                                                                           context: context,
                                                                           builder: (ctx) => AlertDialog(
-                                                                            title: const Text("Start Appointment"),
-                                                                            content: const Text("Are you sure you want to Start this Appointment"),
+                                                                            shape: RoundedRectangleBorder(
+                                                                              borderRadius: BorderRadius.circular(10.0),
+                                                                            ),
+
+                                                                            title: const Text("Start Appointment",style: TextStyle(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              fontSize: 18,color: Color.fromRGBO(26, 59, 106, 1.0),
+
+                                                                            ),
+                                                                            ),
+                                                                            content: const Text("Are you sure you want to Start this Appointment",style: TextStyle(fontSize: 17,fontWeight: FontWeight.w500,color: Color.fromRGBO(26, 59, 106, 1.0),
+                                                                            ),
+                                                                            ),
                                                                             actions: <Widget>[
                                                                               TextButton(
-                                                                                child: const Text('No'),
+                                                                                child: const Text('No',style: TextStyle(
+                                                                                  color: Color.fromRGBO(26, 59, 106, 1.0),
+                                                                                  fontSize: 16,
+                                                                                ),
+                                                                                ),
                                                                                 onPressed: () {
                                                                                   Navigator.of(context).pop();
                                                                                 },
                                                                               ),
                                                                               TextButton(
-                                                                                child: const Text('Yes'),
+                                                                                child: const Text('Yes',style: TextStyle(
+                                                                                  color: Color.fromRGBO(26, 59, 106, 1.0),
+                                                                                  fontSize: 16,
+                                                                                ),
+                                                                                ),
                                                                                 onPressed: () async {
                                                                                   final _db = FirebaseFirestore.instance;
 
@@ -509,17 +541,40 @@ class UpcomingAndPastAppointmentsState extends State<UpcomingAndPastAppointments
                                                                           showDialog(
                                                                             context: context,
                                                                             builder: (ctx) => AlertDialog(
-                                                                              title: const Text("Complete Booking"),
-                                                                              content: const Text("Are you sure you want to Complete this booking?"),
+                                                                              shape: RoundedRectangleBorder(
+                                                                                borderRadius: BorderRadius.circular(10.0),
+                                                                              ),
+
+                                                                              title: const Text("Complete Booking",style: TextStyle(
+                                                                                fontWeight: FontWeight.bold,
+                                                                                fontSize: 18,color: Color.fromRGBO(26, 59, 106, 1.0),
+
+                                                                              ),
+                                                                              ),
+                                                                              content: const Text("Are you sure you want to Complete this booking?",
+                                                                                style: TextStyle(
+                                                                                  color: Color.fromRGBO(26, 59, 106, 1.0),
+                                                                                  fontSize: 16,
+                                                                                ),
+
+                                                                              ),
                                                                               actions: <Widget>[
                                                                                 TextButton(
-                                                                                  child: const Text('No'),
+                                                                                  child: const Text('No',  style: TextStyle(
+                                                                                    color: Color.fromRGBO(26, 59, 106, 1.0),
+                                                                                    fontSize: 16,
+                                                                                  ),
+                                                                                  ),
                                                                                   onPressed: () {
                                                                                     Navigator.of(context).pop();
                                                                                   },
                                                                                 ),
                                                                                 TextButton(
-                                                                                  child: const Text('Yes'),
+                                                                                  child: const Text('Yes',  style: TextStyle(
+                                                                                    color: Color.fromRGBO(26, 59, 106, 1.0),
+                                                                                    fontSize: 16,
+                                                                                  ),
+                                                                                  ),
                                                                                   onPressed: () async {
                                                                                     try {
                                                                                       final _db = FirebaseFirestore.instance;
@@ -569,11 +624,23 @@ class UpcomingAndPastAppointmentsState extends State<UpcomingAndPastAppointments
                                                                                         "vetid": CURRENTVETID,
                                                                                         "review": ""
                                                                                       });
+                                                                                      FirebaseFirestore.instance.collection("TransactionsWalletVet").doc().set({
+                                                                                        "TransactionType": "CompleteAppointment",
+                                                                                        "Status": "Deposit",
+                                                                                        "TransactionAmount": TempAmountVet,
+                                                                                        "TransactionDate": DateTime.now(),
+                                                                                        "booking_id": bookingID,
+                                                                                        "vet_id": CURRENTVETID,
+                                                                                        "user_id": USERID,
+                                                                                      });
+
                                                                                       print("All statements executed successfully!");
                                                                                       Navigator.of(context).pop();
                                                                                     } catch (e) {
                                                                                       print("An error occurredsssssssssss: $e");
                                                                                     }
+                                                                                    Navigator.of(context).pop();
+
                                                                                   },),
                                                                               ],),
                                                                           );
