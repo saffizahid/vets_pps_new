@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'Authntication/auth_page.dart';
+import 'CLINICVETS/AppiontmentDetails Clinics.dart';
 import 'CLINICVETS/home_screen_clinics.dart';
 import 'Style/styles/colors.dart';
 import 'VETATHOME/home_screen_vetathome.dart';
+import 'VetAtHome/AppiontmentDetails VAH.dart';
 
 class UpcomingAndPastAppointments extends StatefulWidget {
   String ProfileType;
@@ -662,6 +664,99 @@ class UpcomingAndPastAppointmentsState extends State<UpcomingAndPastAppointments
                                                                 ],
                                                               ),
                                                               SizedBox(
+                                                                height: 5,),
+
+
+                                                              if ( widget.ProfileType == "Clinic") ...[
+                                                                InkWell(
+                                                                  onTap: () {
+
+                                                                    Navigator.push(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context)
+                                                                            {
+                                                                              return  BookingDetailsPage(bookingId: bookingID,);
+                                                                            }
+                                                                        )
+                                                                    );
+
+                                                                  },
+                                                                  child: Container(
+                                                                    height: 42,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Color
+                                                                            .fromRGBO(
+                                                                            26,
+                                                                            59,
+                                                                            106,
+                                                                            1.0),
+                                                                        borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                            5)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                          'View Appointment Details',
+                                                                          style: TextStyle(
+                                                                              color: Colors
+                                                                                  .white,
+                                                                              fontWeight:
+                                                                              FontWeight
+                                                                                  .bold),
+                                                                        )),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 5,),
+
+                                                              ],
+                                                              if ( widget.ProfileType == "VETATHOME") ...[
+                                                                InkWell(
+                                                                  onTap: () {
+
+                                                                    Navigator.push(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context)
+                                                                            {
+                                                                              return  BookingDetailsPageVAH(bookingId: bookingID,);
+                                                                            }
+                                                                        )
+                                                                    );
+
+                                                                  },
+                                                                  child: Container(
+                                                                    height: 42,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Color
+                                                                            .fromRGBO(
+                                                                            26,
+                                                                            59,
+                                                                            106,
+                                                                            1.0),
+                                                                        borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                            5)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                          'View Appointment Details',
+                                                                          style: TextStyle(
+                                                                              color: Colors
+                                                                                  .white,
+                                                                              fontWeight:
+                                                                              FontWeight
+                                                                                  .bold),
+                                                                        )),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 5,),
+
+                                                              ],
+
+                                                              SizedBox(
                                                                 height: 10,
                                                               ),
                                                               SizedBox(
@@ -968,6 +1063,94 @@ class UpcomingAndPastAppointmentsState extends State<UpcomingAndPastAppointments
                                                               SizedBox(
                                                                 height: 15,
                                                               ),
+                                                              if ( widget.ProfileType == "Clinic") ...[
+                                                                InkWell(
+                                                                  onTap: () {
+
+                                                                    Navigator.push(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context)
+                                                                            {
+                                                                              return  BookingDetailsPage(bookingId: bookingID,);
+                                                                            }
+                                                                        )
+                                                                    );
+
+                                                                  },
+                                                                  child: Container(
+                                                                    height: 42,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Color
+                                                                            .fromRGBO(
+                                                                            26,
+                                                                            59,
+                                                                            106,
+                                                                            1.0),
+                                                                        borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                            5)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                          'View Appointment Details',
+                                                                          style: TextStyle(
+                                                                              color: Colors
+                                                                                  .white,
+                                                                              fontWeight:
+                                                                              FontWeight
+                                                                                  .bold),
+                                                                        )),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 5,),
+
+                                                              ],
+                                                              if ( widget.ProfileType == "VETATHOME") ...[
+                                                                InkWell(
+                                                                  onTap: () {
+
+                                                                    Navigator.push(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context)
+                                                                            {
+                                                                              return  BookingDetailsPageVAH(bookingId: bookingID,);
+                                                                            }
+                                                                        )
+                                                                    );
+
+                                                                  },
+                                                                  child: Container(
+                                                                    height: 42,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Color
+                                                                            .fromRGBO(
+                                                                            26,
+                                                                            59,
+                                                                            106,
+                                                                            1.0),
+                                                                        borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                            5)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                          'View Appointment Details',
+                                                                          style: TextStyle(
+                                                                              color: Colors
+                                                                                  .white,
+                                                                              fontWeight:
+                                                                              FontWeight
+                                                                                  .bold),
+                                                                        )),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 5,),
+
+                                                              ],
 
                                                               SizedBox(
                                                                 width: 20,

@@ -152,6 +152,8 @@ class _EditPageSec extends State<EditPageSec> {
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () async {
+          GeoPoint pinLocations = GeoPoint(_selectedLocation.latitude, _selectedLocation.longitude);
+
           if (_formKey.currentState!.validate()) {
             var response = await FirebaseCrud.updateClinics(
                 name: _clinicName.text,
@@ -159,7 +161,7 @@ class _EditPageSec extends State<EditPageSec> {
                 startTime: _timeRange!.start.format(context),
                 endTime: _timeRange!.end.format(context),
                 docId: _docid.text,
-                pinlocation: GeoPoint(0,0),
+                pinlocation: pinLocations,
                 selecteddays: _selectedDays,
                 unselecteddays: _unselectedDays,
                 timeslotduration: dropdownValue

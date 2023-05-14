@@ -61,6 +61,32 @@ class _ClinicLists extends State<ClinicLists> {
       body: StreamBuilder(
         stream: collectionReference,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          void displayMessageAndDisableSwitch(BuildContext context) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('No services found'),
+                  content: Text('Please Add Services For This Clinic.'),
+                  actions: [
+                    TextButton(
+                      child: Text('OK'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          }
+          Future<bool> checkServicesExist(String clinicId) async {
+            QuerySnapshot snapshot = await FirebaseFirestore.instance
+                .collection('Services')
+                .where('clinicId', isEqualTo: clinicId)
+                .get();
+            return snapshot.docs.isNotEmpty;
+          }
           if (snapshot.hasData) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
@@ -84,11 +110,16 @@ class _ClinicLists extends State<ClinicLists> {
                           ),
                           trailing: Switch(
                             value: clinicAvailable,
-                            onChanged: (value) {
-                              FirebaseFirestore.instance
-                                  .collection('Clinics')
-                                  .doc(clinicid)
-                                  .update({'CLINICAVALIBLE': value});
+                            onChanged: (value) async {
+                              bool servicesExist = await checkServicesExist(clinicid);
+                              if (servicesExist) {
+                                FirebaseFirestore.instance
+                                    .collection('Clinics')
+                                    .doc(clinicid)
+                                    .update({'CLINICAVALIBLE': value});
+                              } else {
+                                displayMessageAndDisableSwitch(context);
+                              }
                             },
                           ),
                           subtitle: Column(

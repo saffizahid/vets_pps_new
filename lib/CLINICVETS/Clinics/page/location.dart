@@ -25,6 +25,8 @@ class _LocationPickerState extends State<LocationPicker> {
     return Stack(
       children: [
         GoogleMap(
+          myLocationButtonEnabled: true,
+          myLocationEnabled: true,
           initialCameraPosition: CameraPosition(
             target: widget.initialLocation,
             zoom: 16.0,
