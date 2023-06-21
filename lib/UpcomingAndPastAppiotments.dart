@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'Authntication/auth_page.dart';
 import 'CLINICVETS/AppiontmentDetails Clinics.dart';
 import 'CLINICVETS/home_screen_clinics.dart';
+import 'Common/PETPROFILE/ViewPetProfile.dart';
 import 'Style/styles/colors.dart';
 import 'VETATHOME/home_screen_vetathome.dart';
 import 'VetAtHome/AppiontmentDetails VAH.dart';
@@ -145,6 +146,8 @@ class UpcomingAndPastAppointmentsState extends State<UpcomingAndPastAppointments
                                       var status = document!['userName'];
                                       var USERID = document['userId'];
                                       var servicePrice = document['servicePrice'];
+                                      var PETID = document['PetID'];
+
                                       var bookingID = document.id;
                                       var AppiotmentStatus = document['userName'];
                                       var DateTimeOld =DateTime.tryParse(document['bookingStart']);
@@ -755,6 +758,47 @@ class UpcomingAndPastAppointmentsState extends State<UpcomingAndPastAppointments
                                                                   height: 5,),
 
                                                               ],
+                                                              InkWell(
+                                                                onTap: () {
+
+                                                                  Navigator.push(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                          builder: (context)
+                                                                          {
+                                                                            return  ViewPetProfile(petId: PETID,);
+                                                                          }
+                                                                      )
+                                                                  );
+
+                                                                },
+                                                                child: Container(
+                                                                  height: 42,
+                                                                  decoration: BoxDecoration(
+                                                                      color: Color
+                                                                          .fromRGBO(
+                                                                          26,
+                                                                          59,
+                                                                          106,
+                                                                          1.0),
+                                                                      borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                          5)),
+                                                                  child: Center(
+                                                                      child: Text(
+                                                                        'View Pet Profile',
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .white,
+                                                                            fontWeight:
+                                                                            FontWeight
+                                                                                .bold),
+                                                                      )),
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                height: 5,),
 
                                                               SizedBox(
                                                                 height: 10,
